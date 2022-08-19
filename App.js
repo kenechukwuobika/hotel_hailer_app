@@ -1,13 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { StyleSheet } from 'react-native';
+import { ThemeProvider } from 'styled-components';
+import { useFonts as useRaleway, Raleway_400Regular, Raleway_600SemiBold, Raleway_700Bold, Raleway_800ExtraBold } from '@expo-google-fonts/raleway';
+import { useFonts as useMulish, Mulish_400Regular, Mulish_700Bold } from '@expo-google-fonts/mulish';
+
+import store from './src/redux/store';
+import SafeArea from './src/shared-components/utils/SafeArea';
+import CustomNavigator from './src/infrastructure/navigation';
+
+import { theme } from './src/infrastructure/theme';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const [ralewayLoaded] = useRaleway({
+        Raleway_400Regular,
+        Raleway_600SemiBold,
+        Raleway_700Bold,
+        Raleway_800ExtraBold
+    });
+
+    const [mulishLoaded] = useMulish({
+        Mulish_400Regular,
+        Mulish_700Bold
+    });
+
+
+    if(!ralewayLoaded || !mulishLoaded){
+        return null;
+    }
+
+    return (
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <SafeArea>
+                    <CustomNavigator />
+                </SafeArea>
+            </ThemeProvider>
+        </Provider>
+    );
 }
 
 const styles = StyleSheet.create({
