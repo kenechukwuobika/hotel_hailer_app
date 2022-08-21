@@ -1,28 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { TouchableOpacity, Modal, View, KeyboardAvoidingView } from 'react-native';
-import { SvgXml } from 'react-native-svg';
+import { TouchableOpacity, Keyboard, Animated, View } from 'react-native';
+import { useTheme } from 'styled-components';
 
-import { XmlContainer, LoginContainer } from '../styles/accountStyles';
-import { xml } from '../../../../../assets/svg/recatngleSvg';
+import Banner from '../components/Banner';
 import { InputHollow, Label, CheckBox, Error } from '../../../../shared-components/Form/formComponent';
 import { Container, BottomContainer } from '../../../../shared-components/Container';
 import { Text } from '../../../../shared-components/typography/Text';
 import Button from '../../../../shared-components/button/buttonComponent';
 import { Spacer } from '../../../../shared-components/spacer/spacerComponent';
 import { Aligner } from '../../../../shared-components/aligner/AlignerComponent';
+import Alert from '../../../../shared-components/alert/AlertComponent';
 
-import { loginAction, showLoading, clearLoginError } from '../../../../redux/actions/authAction';
-import { useTheme } from 'styled-components';
+import { loginAction, showLoading, clearLoading, clearLoginError } from '../../../../redux/actions/authAction';
 
 const LoginScreen = (props) => {
     const theme = useTheme();
-    const { error, clearLoginError, loginAction, showLoading, isLoading } = props;
+    const { error, clearLoginError, loginAction, showLoading, clearLoading, isLoading, isSignedIn } = props;
     const [rememberMe, setRememberMe] = useState(false);
     const [usernameEmail, setUsernameEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginBtnDisabled, setLoginBtnDisabled] = useState(true);
     const [modalVisible, setModalVisible] = useState(true);
+    const [isKeyboadVisible, setIsKeyboadVisible] = useState(false);
+
+    // const AnimatedSVG = Animated.createAnimatedComponent(SvgXml)
+    const slideUp = new Animated.Value(0);
+
+    useEffect(() => {
+        if(isSignedIn){
+            props.navigation.push("home")
+        }
+    }, [isSignedIn])
 
     useEffect(() => {
         if(error){
@@ -76,28 +85,11 @@ const LoginScreen = (props) => {
     return (
         <>
             <Container>
-                <SvgXml height="35%" width="100%" preserveAspectRatio='none' xml={xml} />
-                
-                <Spacer type="margin" position="bottom" size="xl" />
-
-                <XmlContainer>
-                    <LoginContainer>
-                        <Spacer type="padding" position="left" size="lg">
-                            <Text variant="header">Login</Text>
-                            <Text options={{ fontFamily: theme.fontFamilies.mulish, color: theme.colors.white }}>Welcome back, kindly login</Text>
-                        </Spacer>
-                    </LoginContainer>
-                </XmlContainer>
-                
+                <Banner
+                    title="Login"
+                    subTitle="Welcome back, kindly login"
+                />
                 <Spacer type="padding" position="horizontal" size="lg">
-                    
-                    {error && 
-                        <Spacer type="margin" position="bottom" size="sm">
-                            <Aligner justify="center" align="center">
-                                <Error>{error}</Error>
-                            </Aligner>
-                        </Spacer>
-                    }
 
                     <Spacer type="margin" position="bottom" size="md">
                         <Label>E-mail/Username</Label>
@@ -125,8 +117,8 @@ const LoginScreen = (props) => {
 
                     <Spacer type="margin" position="bottom" customSize={135}>
                         <Button
-                            disabled={loginBtnDisabled}
                             onPress={onLogin}
+                            disabled={loginBtnDisabled}
                             text="Login"
                         />
                     </Spacer>
@@ -143,22 +135,28 @@ const LoginScreen = (props) => {
                 </BottomContainer>
             </Container>
 
-            
+            {error && 
+                <Alert
+                    message={error}
+                />
+            }
         </>
     );
 }
 
 const mapStateToProps = ({ auth }) => {
-    const { error, isLoading } = auth;
+    const { error, isLoading, isSignedIn } = auth;
     return {
         error,
-        isLoading
+        isLoading,
+        isSignedIn
     }
 }
 
 const mapDispatchToProps = { 
     loginAction,
-    showLoading,
+    showLoading, 
+    clearLoading,
     clearLoginError
 }
 
