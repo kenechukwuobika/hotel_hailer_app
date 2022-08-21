@@ -13,13 +13,6 @@ const MenuItem = styled.View`
 
 export const Menu = (props) => {
     const theme = useTheme();
-    let fontWeight = 700;
-    let backgroundColor = theme.colors.indicators.success;
-    
-    if(props.activeItem){
-        fontWeight = 700;
-        backgroundColor = theme.colors.primary.default;
-    }
 
     const displayMenuItem = () => {
         if(!props.menuItems){
@@ -32,13 +25,26 @@ export const Menu = (props) => {
                 marginRight = 0;
             }
 
+            let fontFamily = theme.fontFamilies.raleway;
+            let backgroundColor = "transparent";
+            let color = theme.colors.blues.b1;
+
+            if(props.activeItem === item){
+                console.log(item)
+                fontFamily = theme.fontFamilies.ralewaySemiBold;
+                backgroundColor = theme.colors.primary.default;
+                color = theme.colors.white;
+            }
+
+            console.log(backgroundColor)
+
             return (
                 <Spacer key={item} type="margin" position="right" customSize={`${marginRight}`}>
                     <TouchableOpacity>
                         <MenuItem style={{ borderRadius: 5, backgroundColor }}>
                             <Spacer type="padding" position="horizontal" customSize={8}>
                                 <Spacer type="padding" position="vertical" customSize={8}>
-                                    <Text>{item}</Text>
+                                    <Text options={{fontFamily, color}}>{item}</Text>
                                 </Spacer>
                             </Spacer>
                         </MenuItem>

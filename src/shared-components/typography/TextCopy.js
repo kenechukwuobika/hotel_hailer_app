@@ -47,7 +47,6 @@ export const TextCopy = (props) => {
         },
     }
 
-    console.log(props)
     if(props.color){
         
     }

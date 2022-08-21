@@ -1,4 +1,5 @@
 import React from 'react';
+import { FlatList, View, Image, TouchableOpacity } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
 import { Text } from '../../../../shared-components/typography/Text';
@@ -13,6 +14,29 @@ import { useTheme } from 'styled-components';
 
 export default HomeScreen = (props) => {
     const menuItems = ['Hotel', 'Motel', 'Villa', 'Home', 'Apartment'];
+    const products = [
+        {
+            name: "Transcorp Hilton Abuja",
+            image: "../../../../../assets/images/product.jpg",
+            price: 104000
+        },
+        {
+            name: "Transcorp Hilton Abuja",
+            image: "../../../../../assets/images/product.jpg",
+            price: 104000
+        },
+        {
+            name: "Transcorp Hilton Abuja",
+            image: "../../../../../assets/images/product.jpg",
+            price: 104000
+        },
+        {
+            name: "Transcorp Hilton Abuja",
+            image: "../../../../../assets/images/product.jpg",
+            price: 104000
+        }
+    ];
+
     const theme = useTheme();
     return (
         <Container>
@@ -29,9 +53,7 @@ export default HomeScreen = (props) => {
                                 <SvgXml xml={location} width={10} height={16} />
                             </Spacer>
                             <Text
-                                color= "blue"
-                                fontFamily= {theme.fontFamilies.mulishBold}
-                                options={{ color: theme.colors.primary.default, textDecoration: "underline" }}
+                                options={{ color: theme.colors.primary.default }}
                             >
                                 Around current location
                             </Text>
@@ -40,11 +62,64 @@ export default HomeScreen = (props) => {
 
                     <Menu menuItems={menuItems} activeItem={menuItems[0]} />
 
-                    <Aligner justify="space-between">
-                        <Text variant="title" color= "dark">Popular</Text>
-                        <Text color= 'blue'>See all</Text>
-                    </Aligner>
+                    <Spacer type="margin" position="bottom" customSize={8}>
+                        <Aligner justify="space-between">
+                            <Text variant="title" color= "dark">Popular</Text>
+                            <Text options={{color: theme.colors.primary.default}}>See all</Text>
+                        </Aligner>
+                    </Spacer>
                 </Spacer>
+            </Spacer>
+
+            <Spacer type="padding" position="left" customSize={24}>
+                <FlatList 
+                    // contentContainerStyle={{ flex: 1, width: "100%", height: "100%" }} style={{ flex: 1, width: "100%", height: "100%"}}
+                    data={products}
+                    horizontal={true}
+                    renderItem={({ product }) => {
+                        return(
+                            <Spacer type="margin" position="right" customSize={24}>
+                                <TouchableOpacity onPress={() => console.log("pressed")}>
+                                    <View style = {{ 
+                                        width: 242,
+                                        height: 359,
+                                        backgroundColor: 'white',
+                                        borderRadius: 8,
+                                        paddingHorizontal: 8,
+                                        paddingVertical: 8,
+                                        // alignItems: 'center',
+                                        // justifyContent: 'center'
+                                    }}>
+                                        <Image source={require('../../../../../assets/images/product.jpg')} style={{ width: "100%" }} />
+                                        <Spacer type="margin" position="bottom" customSize={8} />
+                                        
+                                        <Spacer type="margin" position="bottom" customSize={8}>
+                                            <Aligner justify="space-between">
+                                                <Text options={{ fontFamily: theme.fontFamilies.mulishSemiBold }}>Transcorp Hilton Abuja</Text>
+                                                <Text>Abuja</Text>
+                                            </Aligner>
+                                        </Spacer>
+                
+                                        <Aligner justify="space-between">
+                                            <Text options={{ fontFamily: theme.fontFamilies.mulishSemiBold }}>Transcor</Text>
+                                            <Text>
+                                                <Text options={{ 
+                                                    color: theme.colors.primary.default,
+                                                    fontFamily: theme.fontFamilies.ralewaySemiBold 
+                                                }}>
+                                                    N104,000/
+                                                </Text>
+                                                <Text variant="caption" options={{ 
+                                                    color: theme.colors.greys.g1
+                                                }}>night</Text>
+                                            </Text>
+                                        </Aligner>
+                                    </View>
+                                </TouchableOpacity>
+                            </Spacer>
+                        )
+                    }}
+                />
             </Spacer>
         </Container>
     );

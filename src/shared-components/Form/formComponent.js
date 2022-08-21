@@ -14,6 +14,7 @@ export const InputHollow = styled(TextInput)`
     border-bottom-width: ${1}px;
     border-bottom-color: ${props => props.theme.colors.greys.g3};
     font-size: ${props => props.theme.fontSizes.body}px;
+    padding-vertical: ${RFValue(9)}px;
 `;
 
 export const InputStyle = styled(TextInput)`

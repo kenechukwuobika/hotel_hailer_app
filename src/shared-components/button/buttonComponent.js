@@ -1,11 +1,14 @@
+import React, { useEffect } from 'react';
 import { TouchableOpacity, Animated } from 'react-native';
 import { ActivityIndicator } from "react-native-paper";
-
-import { Text } from '../typography/Text';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
+
+import { Text } from '../typography/Text';
+import { clearLoading } from '../../redux/actions/authAction';
+
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -27,9 +30,13 @@ export const ButtonView = styled(AnimatedTouchableOpacity)`
 
 const Button = (props) => {
     const theme = useTheme();
-    const { isLoading } = props;
+    const { isLoading, clearLoading } = props;
     let backgroundColor = theme.colors.primary.default;
     let textColor = theme.colors.white;
+
+    useEffect(() => {
+        clearLoading();
+    }, [])
 
     const onPress = () => {
         props.onPress();
@@ -69,4 +76,8 @@ const mapStateToProps = ({ auth }) => {
     return { isLoading, auth }
 }
 
-export default connect(mapStateToProps)(Button)
+const mapDispatchToProps = { 
+    clearLoading
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Button)

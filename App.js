@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { useFonts as useRaleway, Raleway_400Regular, Raleway_600SemiBold, Raleway_700Bold, Raleway_800ExtraBold } from '@expo-google-fonts/raleway';
-import { useFonts as useMulish, Mulish_400Regular, Mulish_700Bold } from '@expo-google-fonts/mulish';
+import { useFonts as useMulish, Mulish_400Regular, Mulish_600SemiBold, Mulish_700Bold } from '@expo-google-fonts/mulish';
 
 import store from './src/redux/store';
 import SafeArea from './src/shared-components/utils/SafeArea';
@@ -21,6 +21,7 @@ export default function App() {
 
     const [mulishLoaded] = useMulish({
         Mulish_400Regular,
+        Mulish_600SemiBold,
         Mulish_700Bold
     });
 

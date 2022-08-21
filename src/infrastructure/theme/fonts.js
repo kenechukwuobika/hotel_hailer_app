@@ -10,6 +10,7 @@ export const fontFamilies = {
     ralewayBold: "Raleway_700Bold",
     ralewaySemiBold: "Raleway_600SemiBold",
     mulish: "Mulish_400Regular",
+    mulishSemiBold: "Mulish_600SemiBold",
     mulishBold: "Mulish_700Bold",
 }
 

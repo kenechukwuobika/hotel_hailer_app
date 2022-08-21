@@ -1,23 +1,34 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, KeyboardAvoidingView, View } from 'react-native';
-import { SvgXml } from 'react-native-svg';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native';
+import { useTheme } from 'styled-components';
 
-import { XmlContainer, LoginContainer } from '../styles/accountStyles';
-import { xml } from '../../../../../assets/svg/recatngleSvg';
+import { loginAction, showLoading, clearLoginError } from '../../../../redux/actions/authAction';
+
+import Banner from '../components/Banner';
 import { InputHollow, Label, Error } from '../../../../shared-components/Form/formComponent';
 import { Container, BottomContainer } from '../../../../shared-components/Container';
 import { Text } from '../../../../shared-components/typography/Text';
 import Button from '../../../../shared-components/button/buttonComponent';
 import { Spacer } from '../../../../shared-components/spacer/spacerComponent';
 import { Aligner } from '../../../../shared-components/aligner/AlignerComponent';
-import { useTheme } from 'styled-components';
 
-export default RegisterScreen = (props) => {
+const RegisterScreen = (props) => {
     const theme = useTheme();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [registerBtnDisabled, setRegisterBtnDisabled] = useState(true);
     
+    useEffect(() => {
+        if(username && email && password){
+            setRegisterBtnDisabled(false)
+        }
+        else{
+            setRegisterBtnDisabled(true)
+        }
+    }, [username, email, password]);
+
     const navigateAway = () => {
         props.navigation.push('login')
     }
@@ -35,27 +46,19 @@ export default RegisterScreen = (props) => {
     }
 
     const onRegister = () => {
-        console.log(email)
-        console.log(username)
-        console.log(password)
+        // console.log(email)
+        // console.log(username)
+        // console.log(password)
         props.navigation.navigate('home')
     }
 
     return (
         <>
             <Container>
-                <SvgXml height="35%" width="100%" preserveAspectRatio='none' xml={xml} />
-                
-                <Spacer type="margin" position="bottom" size="xl" />
-
-                <XmlContainer>
-                    <LoginContainer>
-                        <Spacer type="padding" position="left" size="lg">
-                            <Text variant="header">Register</Text>
-                            <Text options={{ fontFamily: theme.fontFamilies.mulish, color: theme.colors.white }}>Join the world of opportunities</Text>
-                        </Spacer>
-                    </LoginContainer>
-                </XmlContainer>
+                <Banner
+                    title="Register"
+                    subTitle="Join the world of opportunities"
+                />
                 
                 <Spacer type="padding" position="horizontal" size="lg">
                     
@@ -89,6 +92,7 @@ export default RegisterScreen = (props) => {
                     <Spacer type="margin" position="bottom" customSize={135}>
                         <Button 
                             onPress={onRegister}
+                            disabled={registerBtnDisabled}
                             text="Sign up"
                         />
                     </Spacer>
@@ -106,3 +110,20 @@ export default RegisterScreen = (props) => {
         </>
     );
 }
+
+const mapStateToProps = ({ auth }) => {
+    const { error, isLoading, isSignedIn } = auth;
+    return {
+        error,
+        isLoading,
+        isSignedIn
+    }
+}
+
+const mapDispatchToProps = { 
+    loginAction,
+    showLoading,
+    clearLoginError
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

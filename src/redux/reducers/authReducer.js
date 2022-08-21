@@ -14,6 +14,8 @@ const authReducer = (state = {...initialState}, action) => {
             return {...state, isLoading: false, error: action.payload};
         case 'SHOW_LOADING':
             return {...state, isLoading: true};
+        case 'CLEAR_LOADING':
+            return {...state, isLoading: false};
         case 'SIGN_OUT':
             return {...state, isSignedIn: false, userId: null};
         default:

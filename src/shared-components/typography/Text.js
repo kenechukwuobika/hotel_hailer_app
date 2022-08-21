@@ -75,15 +75,12 @@ const objectString = obj  => {
     let string = ``;
     const objLenght = Object.keys(obj).length;
     let counter = 1;
-    console.log(objLenght)
     for (let key in obj){
         string += `${key}: ${obj[key]}`
         if(counter <= objLenght-1){
-            console.log(`true`)
             string += `;`
         }
         ++counter;
     }
-    console.log(string)
     return string;
 }

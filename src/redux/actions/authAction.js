@@ -22,6 +22,13 @@ export const showLoading = () => (dispatch, getState) => {
     })
 }
 
+export const clearLoading = () => (dispatch, getState) => {
+    dispatch({
+        type: "CLEAR_LOADING",
+        payload: null
+    })
+}
+
 export const clearLoginError = () => (dispatch, getState) => {
     dispatch({
         type: "SIGN_IN_ERROR",
