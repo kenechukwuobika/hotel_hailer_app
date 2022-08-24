@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from "react-native";
 import styled, { useTheme } from "styled-components";
 
@@ -13,15 +14,26 @@ const MenuItem = styled.View`
 
 export const Menu = (props) => {
     const theme = useTheme();
+    const [activeItem, setActiveItem] = useState(null);
+    const { menuItems } = props;
+
+    useEffect(() => {
+        setActiveItem(menuItems[0])
+    }, [])
+
+    const onChangeMenuItem = (index) => {
+        setActiveItem(menuItems[index])
+        console.log(index)
+    }
 
     const displayMenuItem = () => {
-        if(!props.menuItems){
+        if(!menuItems){
             return <></>
         }
         
-        return props.menuItems.map((item, index) => {
+        return menuItems.map((item, index) => {
             let marginRight = 8;
-            if(props.menuItems.length-1 === index){
+            if(menuItems.length-1 === index){
                 marginRight = 0;
             }
 
@@ -29,18 +41,15 @@ export const Menu = (props) => {
             let backgroundColor = "transparent";
             let color = theme.colors.blues.b1;
 
-            if(props.activeItem === item){
-                console.log(item)
+            if(activeItem === item){
                 fontFamily = theme.fontFamilies.ralewaySemiBold;
                 backgroundColor = theme.colors.primary.default;
                 color = theme.colors.white;
             }
 
-            console.log(backgroundColor)
-
             return (
                 <Spacer key={item} type="margin" position="right" customSize={`${marginRight}`}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => onChangeMenuItem(index)}>
                         <MenuItem style={{ borderRadius: 5, backgroundColor }}>
                             <Spacer type="padding" position="horizontal" customSize={8}>
                                 <Spacer type="padding" position="vertical" customSize={8}>

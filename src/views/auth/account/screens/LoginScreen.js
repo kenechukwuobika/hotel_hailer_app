@@ -89,7 +89,16 @@ const LoginScreen = (props) => {
                     title="Login"
                     subTitle="Welcome back, kindly login"
                 />
+                
                 <Spacer type="padding" position="horizontal" size="lg">
+
+                    {error && 
+                        <Spacer type="margin" position="bottom" size="sm">
+                            <Aligner justify="center" align="center">
+                                <Error>{error}</Error>
+                            </Aligner>
+                        </Spacer>
+                    }
 
                     <Spacer type="margin" position="bottom" size="md">
                         <Label>E-mail/Username</Label>
@@ -134,12 +143,6 @@ const LoginScreen = (props) => {
                     </Aligner>
                 </BottomContainer>
             </Container>
-
-            {error && 
-                <Alert
-                    message={error}
-                />
-            }
         </>
     );
 }

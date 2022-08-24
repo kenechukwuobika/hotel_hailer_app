@@ -15,6 +15,7 @@ import { Aligner } from '../../../../shared-components/aligner/AlignerComponent'
 
 const RegisterScreen = (props) => {
     const theme = useTheme();
+    const [errors, setErrors] = useState({});
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,10 +36,12 @@ const RegisterScreen = (props) => {
 
     const onChangeUsername = text => {
         setUsername(text);
+        validateUsername()
     }
 
     const onChangeEmail = text => {
         setEmail(text);
+        validateEmail();
     }
 
     const onChangePassword = text => {
@@ -50,6 +53,33 @@ const RegisterScreen = (props) => {
         // console.log(username)
         // console.log(password)
         props.navigation.navigate('home')
+    }
+
+    const validateUsername = () => {
+        console.log(errors)
+        const existingErrors = {...errors};
+        existingErrors.username = "Invalid username"
+        if(username.length < 2) {
+            setErrors(existingErrors)
+        }else{
+            clearErrors("username")
+
+        }
+    }
+
+    const validateEmail = () => {
+        clearErrors("email");
+        const existingErrors = {...errors};
+        existingErrors.email = "Invalid email";
+        if(email.length <= 2) {
+            setErrors(existingErrors)
+        }
+    }
+
+    const clearErrors = (key) => {
+        const existingErrors = {...errors};
+        delete(existingErrors[key])
+        setErrors(existingErrors)
     }
 
     return (
@@ -65,14 +95,18 @@ const RegisterScreen = (props) => {
                     <Spacer type="margin" position="bottom" size="md">
                         <Aligner justify="space-between" align="center">
                             <Label>E-mail</Label>
-                            <Error>Invalid e-mail or username</Error>
+                            {errors.email && <Error>{errors.email}</Error>}
                         </Aligner>
                         <InputHollow placeholder='Enter email' value={email} onChangeText={onChangeEmail} />
                     </Spacer>
 
-                    <Spacer type="margin" position="bottom" size="md">
-                        <Label>Username</Label>
-                        <InputHollow placeholder='Enter username' value={username} onChangeText={onChangeUsername} />
+                    <Spacer type="margin" position="bottom" size="md" customSize={4}>
+                        <Aligner justify="space-between" align="center">
+                            <Label>Username</Label>
+                            {errors.username && <Error>{errors.username}</Error>}
+                        </Aligner>
+                        <InputHollow error={errors.username ? true : false} placeholder='Enter username' value={username} onChangeText={onChangeUsername} />
+                        <Error>{errors.username && errors.username}</Error>
                     </Spacer>
 
                     <Spacer type="margin" position="bottom" size="md">

@@ -12,7 +12,7 @@ export const Label = styled(Text)`
 
 export const InputHollow = styled(TextInput)`
     border-bottom-width: ${1}px;
-    border-bottom-color: ${props => props.theme.colors.greys.g3};
+    border-bottom-color: ${props => props.error ? props.theme.colors.indicators.error : props.theme.colors.greys.g3};
     font-size: ${props => props.theme.fontSizes.body}px;
     padding-vertical: ${RFValue(9)}px;
 `;
@@ -38,7 +38,7 @@ export const Input = (props) => {
 
 export const Error = styled(Text)`
     color: ${props => props.theme.colors.indicators.error};
-    font-size: ${props => props.theme.fontSizes.caption}px;
+    font-size: ${props => props.theme.fontSizes.label}px;
 `;
 
 const CheckBoxStyle = styled.View`

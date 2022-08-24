@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { TouchableOpacity, Animated } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { TouchableOpacity, Animated, Easing } from 'react-native';
 import { ActivityIndicator } from "react-native-paper";
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
@@ -12,13 +12,6 @@ import { clearLoading } from '../../redux/actions/authAction';
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
-// const fadeAnim = new Animated.Value(0);
-
-// Animated.timing(fadeAnim, {
-//     toValue: 1,
-//     duration: 10000,
-// }).start();
-
 export const ButtonView = styled(AnimatedTouchableOpacity)`
     background-color: ${props => props.backgroundColor};
     justify-content: center;
@@ -30,8 +23,22 @@ export const ButtonView = styled(AnimatedTouchableOpacity)`
 
 const Button = (props) => {
     const theme = useTheme();
-    const { isLoading, clearLoading } = props;
+    const { type, isLoading, clearLoading } = props;
     let backgroundColor = theme.colors.primary.default;
+    switch (type) {
+        case "primary":
+            backgroundColor = theme.colors.primary.default;
+            break;
+        case "error":
+            backgroundColor = theme.colors.indicators.error;
+            break;
+        case "success":
+            backgroundColor = theme.colors.indicators.success;
+            break;
+    
+        default:
+            break;
+    }
     let textColor = theme.colors.white;
 
     useEffect(() => {
@@ -61,7 +68,7 @@ const Button = (props) => {
     }
 
     return (
-        <ButtonView onPress={onPress} disabled={props.disabled} backgroundColor={backgroundColor}>
+        <ButtonView onPress={onPress} disabled={props.disabled} style={{backgroundColor: backgroundColor}}>
             <Text options={{
                 color: textColor
             }}>
@@ -69,6 +76,10 @@ const Button = (props) => {
             </Text>
         </ButtonView>
     )
+}
+
+Button.defaultProps = {
+    type: 'primary'
 }
 
 const mapStateToProps = ({ auth }) => {

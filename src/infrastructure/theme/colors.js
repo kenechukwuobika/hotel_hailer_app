@@ -12,9 +12,9 @@ export const colors = {
         pendingSurface: "#FFF3DB",
         pending: "#FFB321",
 
-        errorBorder: "#DA1414",
+        error: "#DA1414",
         errorSurface: "#FEEFEF",
-        error: "#F48989",
+        errorBorder: "#F48989",
     },
 
     primary: {

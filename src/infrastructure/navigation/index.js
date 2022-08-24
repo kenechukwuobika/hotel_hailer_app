@@ -5,7 +5,7 @@ import AuthNavigator from './AuthNavigator';
 
 export default CustomNavigator = (props) => {
     
-    const authenticated = false;
+    const authenticated = true;
 
     return(
         <NavigationContainer>

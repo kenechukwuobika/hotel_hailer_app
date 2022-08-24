@@ -23,6 +23,11 @@ const header = (theme) => `
     font-size: ${theme.fontSizes.h1}px;
 `;
 
+const h5 = (theme) => `
+    font-family: ${theme.fontFamilies.ralewaySemiBold};
+    font-size: ${theme.fontSizes.h5}px;
+`;
+
 const body = (theme) => `
     font-size: ${theme.fontSizes.body}px;
 `;
@@ -48,6 +53,7 @@ const variants = {
     caption,
     title,
     link,
+    h5
 };
 
 export const TextStyle = styled.Text`

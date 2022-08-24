@@ -41,8 +41,7 @@ const Banner = (props) => {
     useEffect(() => {
         Keyboard.addListener(
             "keyboardDidShow",
-            (e) => {
-                console.log("e")
+            () => {
                 return setIsKeyboadVisible(true)
             }
         );
@@ -50,7 +49,6 @@ const Banner = (props) => {
         Keyboard.addListener(
             "keyboardDidHide",
             (e) => {
-                console.log("e")
                 return setIsKeyboadVisible(false)
             }
         );

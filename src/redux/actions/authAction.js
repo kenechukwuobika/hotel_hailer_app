@@ -8,9 +8,14 @@ export const loginAction = (data) => async (dispatch, getState) => {
             payload: response.message,
         });
     } catch (error) {
+        console.log(error['AxiosError'])
+        let errorMessage = "Something went wrong";
+        if(error && error.response) {
+            errorMessage = error.response.data.message;
+        }
         dispatch({
             type: "SIGN_IN_ERROR",
-            payload: error.response.data.message
+            payload: errorMessage
         })
     }
 }
