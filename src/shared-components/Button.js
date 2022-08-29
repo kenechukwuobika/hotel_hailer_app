@@ -6,8 +6,8 @@ import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
 
-import { Text } from '../typography/Text';
-import { clearLoading } from '../../redux/actions/authAction';
+import { Text } from './Text';
+import { clearLoading } from '../redux/actions/authAction';
 
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);

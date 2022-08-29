@@ -1,7 +1,7 @@
 import { Text, TextInput, TouchableOpacity } from 'react-native';
 import styled, { useTheme } from 'styled-components';
 import { SvgXml } from 'react-native-svg';
-import { checkmarkSvg } from '../../../assets/svg/checkmarkSvg'
+import { checkmarkSvg } from '../../assets/svg/checkmarkSvg'
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Label = styled(Text)`

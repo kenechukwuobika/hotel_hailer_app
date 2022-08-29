@@ -4,14 +4,14 @@ import { TouchableOpacity, View, Animated, Easing } from 'react-native';
 import { useTheme } from 'styled-components';
 import { SvgXml } from 'react-native-svg';
 
-import info from '../../../assets/svg/info';
+import info from '../../assets/svg/info';
 
-import { Aligner } from '../../shared-components/aligner/AlignerComponent';
-import { Spacer } from '../../shared-components/spacer/spacerComponent';
-import { Text } from '../../shared-components/typography/Text';
-import Button from '../../shared-components/button/buttonComponent';
+import { Aligner } from './Aligner';
+import { Spacer } from './Spacer';
+import { Text } from './Text';
+import Button from './Button';
 
-import { clearLoginError } from '../../redux/actions/authAction';
+import { clearLoginError } from '../redux/actions/authAction';
 
 const Alert = (props) => {
     const { clearLoginError } = props;
