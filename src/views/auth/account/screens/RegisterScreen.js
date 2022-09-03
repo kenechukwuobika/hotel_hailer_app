@@ -6,12 +6,12 @@ import { useTheme } from 'styled-components';
 import { loginAction, showLoading, clearLoginError } from '../../../../redux/actions/authAction';
 
 import Banner from '../components/Banner';
-import { InputHollow, Label, Error } from '../../../../shared-components/Form/formComponent';
+import { InputHollow, Label, Error } from '../../../../shared-components/Form';
 import { Container, BottomContainer } from '../../../../shared-components/Container';
-import { Text } from '../../../../shared-components/typography/Text';
-import Button from '../../../../shared-components/button/buttonComponent';
-import { Spacer } from '../../../../shared-components/spacer/spacerComponent';
-import { Aligner } from '../../../../shared-components/aligner/AlignerComponent';
+import { Text } from '../../../../shared-components/Text';
+import Button from '../../../../shared-components/Button';
+import { Spacer } from '../../../../shared-components/Spacer';
+import { Aligner } from '../../../../shared-components/Aligner';
 
 const RegisterScreen = (props) => {
     const theme = useTheme();

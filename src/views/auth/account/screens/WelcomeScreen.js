@@ -4,10 +4,10 @@ import { TouchableOpacity, Image } from 'react-native';
 
 import { TextContainer, BlueCircle, WhiteCircle, CircleContainer } from '../styles/accountStyles';
 import { Container, BottomContainer } from '../../../../shared-components/Container';
-import { Text } from '../../../../shared-components/typography/Text';
-import Button from '../../../../shared-components/button/buttonComponent';
-import { Spacer } from '../../../../shared-components/spacer/spacerComponent';
-import { Aligner } from '../../../../shared-components/aligner/AlignerComponent';
+import { Text } from '../../../../shared-components/Text';
+import Button from '../../../../shared-components/Button';
+import { Spacer } from '../../../../shared-components/Spacer';
+import { Aligner } from '../../../../shared-components/Aligner';
 
 import { loginAction, clearLoginError } from '../../../../redux/actions/authAction';
 import { useTheme } from 'styled-components';

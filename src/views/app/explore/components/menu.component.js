@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from "react-native";
 import styled, { useTheme } from "styled-components";
 
-import { Spacer } from '../../../../shared-components/spacer/spacerComponent';
-import { Aligner } from '../../../../shared-components/aligner/AlignerComponent';
-import { Text } from '../../../../shared-components/typography/Text';
+import { Spacer } from '../../../../shared-components/Spacer';
+import { Aligner } from '../../../../shared-components/Aligner';
+import { Text } from '../../../../shared-components/Text';
 
 const MenuItem = styled.View`
     align-items: center;
@@ -23,7 +23,6 @@ export const Menu = (props) => {
 
     const onChangeMenuItem = (index) => {
         setActiveItem(menuItems[index])
-        console.log(index)
     }
 
     const displayMenuItem = () => {

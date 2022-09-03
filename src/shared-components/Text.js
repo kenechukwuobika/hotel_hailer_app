@@ -32,7 +32,6 @@ const body = (theme) => `
     font-size: ${theme.fontSizes.body}px;
 `;
 
-
 const caption = (theme) => `
     font-size: ${theme.fontSizes.caption}px;
 `;
@@ -40,6 +39,13 @@ const caption = (theme) => `
 const title = (theme) => `
     font-family: ${theme.fontFamilies.ralewaySemiBold};
     font-size: ${theme.fontSizes.title}px;
+`;
+
+const ProductTitle = (theme) => `
+    font-family: ${theme.fontFamilies.ralewayBold};
+    color: ${theme.colors.white};
+    line-height: 30px;
+    font-size: ${theme.fontSizes.ProductTitle}px;
 `;
 
 const link = (theme) => `
@@ -52,6 +58,7 @@ const variants = {
     body,
     caption,
     title,
+    ProductTitle,
     link,
     h5
 };

@@ -1,7 +1,7 @@
 import { Text, TextInput, TouchableOpacity } from 'react-native';
 import styled, { useTheme } from 'styled-components';
 import { SvgXml } from 'react-native-svg';
-import { checkmarkSvg } from '../../assets/svg/checkmarkSvg'
+import { checkmarkSvg } from '../../assets/icons'
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Label = styled(Text)`
@@ -54,7 +54,7 @@ export const CheckBox = (props) => {
     return (
         <TouchableOpacity onPress={props.onPress}>
             <CheckBoxStyle {...props}>
-                {props.isChecked && <SvgXml height="100%" width="100%" xml={checkmarkSvg} />}
+                {props.isChecked && <SvgXml height="100%" width="100%" xml={checkmarkSvg()} />}
             </CheckBoxStyle>
         </TouchableOpacity>
     )

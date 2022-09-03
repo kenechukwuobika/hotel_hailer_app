@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Keyboard, Animated, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import { xml } from '../../../../../assets/svg/recatngleSvg';
+import { rectangleSvg } from '../../../../../assets/icons';
 import { useTheme } from 'styled-components';
 
 import { XmlContainer, LoginContainer } from '../styles/accountStyles';
-import { Spacer } from '../../../../shared-components/spacer/spacerComponent';
-import { Text } from '../../../../shared-components/typography/Text';
+import { Spacer } from '../../../../shared-components/Spacer';
+import { Text } from '../../../../shared-components/Text';
 
 const Banner = (props) => {
     const theme = useTheme();
@@ -16,8 +16,10 @@ const Banner = (props) => {
         if(!isKeyboadVisible){
             return(
                 <>
-                    <SvgXml height="35%" width="100%" preserveAspectRatio='none' xml={xml} />
+                    <SvgXml height="35%" width="100%" preserveAspectRatio='none' xml={rectangleSvg()} />
+
                     <Spacer type="margin" position="bottom" size="xl" />
+                    
                     <XmlContainer>
                         <LoginContainer>
                             <Spacer type="padding" position="left" size="lg">

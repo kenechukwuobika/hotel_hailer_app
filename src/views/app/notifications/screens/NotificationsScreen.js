@@ -1,5 +1,5 @@
 import { View, Animated } from 'react-native';
-import { PlaceholderLoader } from '../../../../shared-components/loader/PlaceholderLoader';
+import { PlaceholderLoader } from '../../../../shared-components/PlaceholderLoader';
 
 const NotificationsScreen = () => {
 

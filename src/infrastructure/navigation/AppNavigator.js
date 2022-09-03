@@ -2,15 +2,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SvgXml } from 'react-native-svg';
 import { useTheme } from 'styled-components';
 
-import { Spacer } from '../../shared-components/spacer/spacerComponent';
-import HomeScreen from '../../views/app/explore/screens/HomeScreen';
+import PropertyNavigator from './PropertyNavigator';
+
+import HomeScreen from '../../views/app/explore/screens/home.screen';
 import NotificationsScreen from '../../views/app/notifications/screens/NotificationsScreen';
 
-import compass from '../../../assets/svg/compass';
-import bell from '../../../assets/svg/bell';
-import love from '../../../assets/svg/love';
-import baggage from '../../../assets/svg/baggage';
-import user from '../../../assets/svg/user';
+import { 
+    compass,
+    bell,
+    love,
+    baggage,
+    user
+} from '../../../assets/icons';
 
 export default AppNavigator = () => {
     const appTab = createBottomTabNavigator();
@@ -50,16 +53,17 @@ export default AppNavigator = () => {
                 marginBottom: 16
             },
             tabBarActiveTintColor: theme.colors.primary.default,
-            tabBarInactiveTintColor: theme.colors.greys.g3
-            
+            tabBarInactiveTintColor: theme.colors.greys.g3,
+            Animation: "slide_from_right",
         }
     };
 
     return (
         <appTab.Navigator 
             screenOptions={createScreenOptions}
+            backBehavior="history"
         >
-            <appTab.Screen name="explore" component={HomeScreen} />
+            <appTab.Screen name="explore" component={PropertyNavigator} />
             <appTab.Screen name="notification" component={NotificationsScreen} />
             <appTab.Screen name="saved" component={HomeScreen} />
             <appTab.Screen name="bookings" component={HomeScreen} />

@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { connect } from 'react-redux';
 import { TouchableOpacity, View, Animated, Easing } from 'react-native';
 import { useTheme } from 'styled-components';
 import { SvgXml } from 'react-native-svg';
 
-import info from '../../assets/svg/info';
+import { info } from '../../assets/icons';
 
 import { Aligner } from './Aligner';
 import { Spacer } from './Spacer';

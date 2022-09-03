@@ -4,13 +4,13 @@ import { TouchableOpacity, Keyboard, Animated, View } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import Banner from '../components/Banner';
-import { InputHollow, Label, CheckBox, Error } from '../../../../shared-components/Form/formComponent';
+import { InputHollow, Label, CheckBox, Error } from '../../../../shared-components/Form';
 import { Container, BottomContainer } from '../../../../shared-components/Container';
-import { Text } from '../../../../shared-components/typography/Text';
-import Button from '../../../../shared-components/button/buttonComponent';
-import { Spacer } from '../../../../shared-components/spacer/spacerComponent';
-import { Aligner } from '../../../../shared-components/aligner/AlignerComponent';
-import Alert from '../../../../shared-components/alert/AlertComponent';
+import { Text } from '../../../../shared-components/Text';
+import Button from '../../../../shared-components/Button';
+import { Spacer } from '../../../../shared-components/Spacer';
+import { Aligner } from '../../../../shared-components/Aligner';
+import Alert from '../../../../shared-components/Alert';
 
 import { loginAction, showLoading, clearLoading, clearLoginError } from '../../../../redux/actions/authAction';
 

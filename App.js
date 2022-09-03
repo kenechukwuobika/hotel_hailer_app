@@ -6,7 +6,6 @@ import { useFonts as useRaleway, Raleway_400Regular, Raleway_600SemiBold, Ralewa
 import { useFonts as useMulish, Mulish_400Regular, Mulish_600SemiBold, Mulish_700Bold } from '@expo-google-fonts/mulish';
 
 import store from './src/redux/store';
-import SafeArea from './src/shared-components/utils/SafeArea';
 import CustomNavigator from './src/infrastructure/navigation';
 
 import { theme } from './src/infrastructure/theme';
@@ -33,9 +32,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <SafeArea>
-                    <CustomNavigator />
-                </SafeArea>
+                <CustomNavigator />
             </ThemeProvider>
         </Provider>
     );

@@ -7,8 +7,9 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export const fontFamilies = {
     raleway: "Raleway_400Regular",
-    ralewayBold: "Raleway_700Bold",
     ralewaySemiBold: "Raleway_600SemiBold",
+    ralewayBold: "Raleway_700Bold",
+    ralewayExtraBold: "Raleway_800ExtraBold",
     mulish: "Mulish_400Regular",
     mulishSemiBold: "Mulish_600SemiBold",
     mulishBold: "Mulish_700Bold",

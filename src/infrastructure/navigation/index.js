@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './AppNavigator';
 import AuthNavigator from './AuthNavigator';
+import SafeArea from '../../shared-components/SafeArea';
 
 export default CustomNavigator = (props) => {
     
@@ -9,7 +10,13 @@ export default CustomNavigator = (props) => {
 
     return(
         <NavigationContainer>
-            { authenticated ? <AppNavigator /> : <AuthNavigator />}
+            { authenticated ? 
+                <SafeArea>
+                    <AppNavigator />
+                </SafeArea>
+                :
+                <AuthNavigator />
+            }
         </NavigationContainer>
     )
 }
