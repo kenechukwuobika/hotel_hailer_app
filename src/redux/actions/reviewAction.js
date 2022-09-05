@@ -1,11 +1,11 @@
-import { getNearbyProperties, getOnePropertyService } from '../../services/propertyService';
+import { getPropertyReviewService } from '../../services/reviewService';
 
-export const getNearbyProperty = (data) => async (dispatch, getState) => {
+export const getPropertyReview = (id, params) => async (dispatch, getState) => {
     try {
-        const response = await getNearbyProperties(data);
-        // console.log(response.data);
+        const response = await getPropertyReviewService(id, params);
+        console.log(response);
         dispatch({
-            type: 'GET_NEARBY_PROPERTIES',
+            type: 'GET_PROPERTY_REVIEWS',
             payload: response.data.data,
         });
     } catch (error) {

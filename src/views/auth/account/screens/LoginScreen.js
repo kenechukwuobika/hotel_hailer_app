@@ -81,7 +81,6 @@ const LoginScreen = (props) => {
     const onRememberMe = () => {
         setRememberMe(!rememberMe)
     }
-
     return (
         <>
             <Container>

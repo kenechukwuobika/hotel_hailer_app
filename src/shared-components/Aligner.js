@@ -5,9 +5,10 @@ const AlignStyle = styled.View`
     flex-direction: ${props => props.direction};
     justify-content: ${props => props.justify};
     align-items: ${props => props.align};
+    flex-wrap: wrap
 `;
 
-export const Aligner = (props) => {
+export const  Aligner = (props) => {
     return (
         <AlignStyle {...props}>{props.children}</AlignStyle>
     )

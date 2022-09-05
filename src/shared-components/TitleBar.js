@@ -42,7 +42,9 @@ export const TitleBar = (props) => {
                                 <SvgXml xml={arrowLeft()} />
                             </TouchableOpacity>
                         </Spacer>
-                        <Text>{props.text}</Text>
+                        <TouchableOpacity onPress={goBack}>
+                            <Text>{props.text}</Text>
+                        </TouchableOpacity>
                     </Aligner>
 
                     <TouchableOpacity>
@@ -74,9 +76,7 @@ export const TitleBar = (props) => {
         <Spacer type="margin" position="top" customSize={24}>
              <Spacer type="padding" position="horizontal" customSize={24}>
                 <Spacer type="margin" position="bottom" customSize={8}>
-                    <TouchableOpacity>
-                        {displayBar()}
-                    </TouchableOpacity>
+                    {displayBar()}
                 </Spacer>
              </Spacer>
         </Spacer>

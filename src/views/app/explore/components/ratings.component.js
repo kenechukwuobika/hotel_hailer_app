@@ -21,10 +21,10 @@ const Ratings = (props) => {
     const arr = [1,2,3,4,5]
 
     const displayRatings = () => {
-        return arr.map((element) => {
+        return arr.map((element, index) => {
             if(element <= ratingsAverage){
                 return (
-                    <Spacer type="margin" position="right" customSize={8}>
+                    <Spacer key={index} type="margin" position="right" customSize={8}>
                         <SvgXml xml={fullStar()} />
                     </Spacer>
                 )
@@ -33,7 +33,7 @@ const Ratings = (props) => {
                 const diff = element - ratingsAverage;
                 if(diff < 1 && ratingsAverage % 1 !== 0){
                     return (
-                        <Spacer type="margin" position="right" customSize={8}>
+                        <Spacer key={index} type="margin" position="right" customSize={8}>
                             <SvgXml xml={halfStar()} />
                         </Spacer>
                     )
@@ -41,7 +41,7 @@ const Ratings = (props) => {
             }
             
             return (
-                <Spacer type="margin" position="right" customSize={8}>
+                <Spacer key={index} type="margin" position="right" customSize={8}>
                     <SvgXml xml={emptyStar()} />
                 </Spacer>
             )

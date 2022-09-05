@@ -23,7 +23,6 @@ import { capitalize } from '../../../../utils/Formatters';
 
 export const PropertyImageCard = (props) => {
     const { property } = props;
-    console.log(property)
     const theme = useTheme();
     const arr = [1,2,3,4,5,6,7,8]
 

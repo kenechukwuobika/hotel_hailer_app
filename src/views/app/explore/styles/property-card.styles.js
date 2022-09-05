@@ -77,10 +77,9 @@ export const ReviewSummaryCard = styled.View`
     border-radius: ${RFValue(8)}px;
 `;
 
-export const ReviewSummaryImage = styled.View`
+export const ReviewSummaryImage = styled.Image`
     width: ${RFValue(24)}px;
     height: ${RFValue(24)}px;
-    background-color: red;
     border-color: ${props => props.theme.colors.white};
     border-width: ${RFValue(1)}px;
     border-radius: ${RFValue(100)}px;

@@ -18,11 +18,6 @@ export const Bullets = (props) => {
         easing: Easing.in,
         useNativeDriver: false,
     }).start();
-
-    useEffect(() => {
-        console.log(width)
-    }, [width])
-    console.log(width)
     
     const displayBullets = () => {
         return props.images.map((image, index) => {

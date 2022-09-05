@@ -8,8 +8,8 @@ const backend = axios.create({
     timeout: 6000
 })
 
-backend.interceptors.request.use(config => {
-	const token = AsyncStorage.getItem('authToken');
+backend.interceptors.request.use(async (config) => {
+	const token = await AsyncStorage.getItem('authToken');
 	
   if (token) {
     config.headers['authorization'] = `Bearer ${token}`

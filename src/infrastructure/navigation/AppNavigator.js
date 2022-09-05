@@ -1,4 +1,6 @@
+import { connect } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useRoute } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 import { useTheme } from 'styled-components';
 
@@ -14,8 +16,11 @@ import {
     baggage,
     user
 } from '../../../assets/icons';
+import { useEffect } from 'react';
 
-export default AppNavigator = () => {
+const AppNavigator = (props) => {
+    const { token, authUser } = props;
+
     const appTab = createBottomTabNavigator();
     const theme = useTheme();
     const tabIcons = {
@@ -25,7 +30,13 @@ export default AppNavigator = () => {
         bookings: baggage,
         profile: user,
     }
-    
+
+    useEffect(() => {
+        if(!token || !authUser) {
+            console.log("unauthenticated")
+        }
+    }, [token, authUser])
+
     const createScreenOptions = (navigation) => {
         const { route } = navigation;
         const routeName = route.name;
@@ -71,3 +82,14 @@ export default AppNavigator = () => {
         </appTab.Navigator>
     )
 }
+
+const mapStateToProps = ({ auth }) => {
+    const { token, authUser } = auth;
+    
+    return {
+        token,
+        authUser: user
+    }
+}
+
+export default connect(mapStateToProps)(AppNavigator);
