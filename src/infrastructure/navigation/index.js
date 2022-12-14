@@ -1,39 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import AppNavigator from './AppNavigator';
 import AuthNavigator from './AuthNavigator';
-import SafeArea from '../../shared-components/SafeArea';
+import { getSavedItems } from '../../redux/actions/wishListAction';
 
 const CustomNavigator = (props) => {
-    
-    const getToken = async () => {
-        const authToken = await AsyncStorage.getItem("authToken");
-        return authToken
-    }
+    const { getSavedItems, savedItems } = props;
+    const [ token, setToken ] = useState(null);
+
 
     return(
-        <NavigationContainer>
-            { getToken() ? 
-                <SafeArea>
-                    <AppNavigator />
-                </SafeArea>
-                :
+        <>
+            <NavigationContainer>    
                 <AuthNavigator />
-            }
-        </NavigationContainer>
+            </NavigationContainer>
+        </>
     )
 }
 
-const mapStateToProps = ({ auth }) => {
-    const { token, user } = auth;
+const mapStateToProps = ({ wishListReducer }) => {
+    const { savedItems } = wishListReducer;
     
     return {
-        token,
-        user
+        savedItems
     }
 }
 
-export default connect(mapStateToProps)(CustomNavigator);
+const mapDispatchToProps = {    
+    getSavedItems
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomNavigator);

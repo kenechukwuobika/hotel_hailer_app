@@ -10,17 +10,14 @@ const ReviewSummaryImages = (props) => {
     const theme = useTheme();
     const arr = [1,2,3,4];
 
-    console.log(reviews)
-
     const displayImages = () => {
         if(!reviews) {
             return (<></>);
         }
 
         return reviews.map((review, index) => {
-            console.log(review.user)
             return (
-                <ReviewSummaryImage key={index} source={{ uri:`${review.user.image}` }} />
+                <ReviewSummaryImage key={index} source={{ uri:`${review.user?.image}` }} />
             )
         })
     }

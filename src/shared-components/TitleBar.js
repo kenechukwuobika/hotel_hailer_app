@@ -1,5 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 import { TouchableOpacity, View } from 'react-native';
+import { connect } from 'react-redux';
 import { SvgXml } from 'react-native-svg';
 import { RFValue } from 'react-native-responsive-fontsize';
 
@@ -8,6 +9,8 @@ import { Aligner } from './Aligner';
 import { Text } from './Text';
 
 import { arrowLeft, filter } from '../../assets/icons';
+
+import { showModal, hideModal } from '../../src/redux/actions/modalAction';
 
 const TitleBarStyle = styled.View`
     flex-direction: row;
@@ -21,9 +24,15 @@ const TitleBarStyle = styled.View`
     border-radius: ${RFValue(8)}px
 `;
 
-export const TitleBar = (props) => {
-    const { navigation, type } = props;
+const mapDispatchToProps = {
+    showModal,
+    hideModal
+}
+
+export const TitleBar = connect(null, mapDispatchToProps)((props) => {
+    const { navigation, type, link, showModal, hideModal } = props;
     const theme = useTheme();
+    const canGoBack = navigation.canGoBack();
 
     const goBack = () => {
         const canGoBack = navigation.canGoBack();
@@ -32,22 +41,32 @@ export const TitleBar = (props) => {
         }
     }
 
+    const goToSearch = () => {
+        if(!link) {
+            return;
+        }
+        navigation.push("modal", { type: "search" })
+    }
+
     const displayBar = () => {
         if(type === "search") {
             return(
                 <TitleBarStyle>
-                    <Aligner justify="center" align="center">
-                        <Spacer type="margin" position="right" customSize={8}>
-                            <TouchableOpacity onPress={goBack}>
-                                <SvgXml xml={arrowLeft()} />
-                            </TouchableOpacity>
-                        </Spacer>
-                        <TouchableOpacity onPress={goBack}>
-                            <Text>{props.text}</Text>
+                    <Aligner justify="center" align="center" style={{ flex: 1 }}>
+                        {
+                            canGoBack && 
+                            <Spacer type="margin" position="right" customSize={8}>
+                                <TouchableOpacity onPress={goBack}>
+                                    <SvgXml xml={arrowLeft()} />
+                                </TouchableOpacity>
+                            </Spacer>
+                        }
+                        <TouchableOpacity onPress={goToSearch} style={{ flex: 1 }}>
+                            <Text style={{ color: theme.colors.greys.g3 }}>{props.text}</Text>
                         </TouchableOpacity>
                     </Aligner>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => showModal("filter")}>
                         <SvgXml xml= {filter()} />
                     </TouchableOpacity>
                 </TitleBarStyle>
@@ -81,4 +100,8 @@ export const TitleBar = (props) => {
              </Spacer>
         </Spacer>
     )
-}
+})
+
+TitleBar.defaultProps = {
+    link: true
+};

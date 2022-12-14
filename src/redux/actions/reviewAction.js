@@ -3,7 +3,6 @@ import { getPropertyReviewService } from '../../services/reviewService';
 export const getPropertyReview = (id, params) => async (dispatch, getState) => {
     try {
         const response = await getPropertyReviewService(id, params);
-        console.log(response);
         dispatch({
             type: 'GET_PROPERTY_REVIEWS',
             payload: response.data.data,

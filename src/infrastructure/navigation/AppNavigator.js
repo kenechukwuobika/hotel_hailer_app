@@ -1,6 +1,4 @@
-import { connect } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useRoute } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 import { useTheme } from 'styled-components';
 
@@ -8,6 +6,8 @@ import PropertyNavigator from './PropertyNavigator';
 
 import HomeScreen from '../../views/app/explore/screens/home.screen';
 import NotificationsScreen from '../../views/app/notifications/screens/NotificationsScreen';
+
+import SafeArea from '../../shared-components/SafeArea';
 
 import { 
     compass,
@@ -19,7 +19,6 @@ import {
 import { useEffect } from 'react';
 
 const AppNavigator = (props) => {
-    const { token, authUser } = props;
 
     const appTab = createBottomTabNavigator();
     const theme = useTheme();
@@ -31,15 +30,9 @@ const AppNavigator = (props) => {
         profile: user,
     }
 
-    useEffect(() => {
-        if(!token || !authUser) {
-            console.log("unauthenticated")
-        }
-    }, [token, authUser])
-
     const createScreenOptions = (navigation) => {
         const { route } = navigation;
-        const routeName = route.name;
+        const routeName = route.name.toLowerCase();
         const iconName = tabIcons[routeName];
         const title = `${routeName.charAt(0).toUpperCase()}${routeName.slice(1)}`;
         return {
@@ -70,26 +63,19 @@ const AppNavigator = (props) => {
     };
 
     return (
-        <appTab.Navigator 
-            screenOptions={createScreenOptions}
-            backBehavior="history"
-        >
-            <appTab.Screen name="explore" component={PropertyNavigator} />
-            <appTab.Screen name="notification" component={NotificationsScreen} />
-            <appTab.Screen name="saved" component={HomeScreen} />
-            <appTab.Screen name="bookings" component={HomeScreen} />
-            <appTab.Screen name="profile" component={HomeScreen} />
-        </appTab.Navigator>
+        <SafeArea>
+            <appTab.Navigator 
+                screenOptions={createScreenOptions}
+                backBehavior="history"
+            >
+                <appTab.Screen name="Explore" component={PropertyNavigator} />
+                <appTab.Screen name="Notification" component={NotificationsScreen} />
+                <appTab.Screen name="Saved" component={HomeScreen} />
+                <appTab.Screen name="Bookings" component={HomeScreen} />
+                <appTab.Screen name="Profile" component={HomeScreen} />
+            </appTab.Navigator>
+        </SafeArea>
     )
 }
 
-const mapStateToProps = ({ auth }) => {
-    const { token, authUser } = auth;
-    
-    return {
-        token,
-        authUser: user
-    }
-}
-
-export default connect(mapStateToProps)(AppNavigator);
+export default AppNavigator;

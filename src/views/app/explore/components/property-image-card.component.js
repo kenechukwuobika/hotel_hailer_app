@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { useTheme } from "styled-components";
@@ -6,6 +7,7 @@ import { Text } from '../../../../shared-components/Text';
 import { Spacer } from '../../../../shared-components/Spacer';
 import { Aligner } from '../../../../shared-components/Aligner';
 import { PlaceholderLoader } from '../../../../shared-components/PlaceholderLoader';
+import { Heart } from '../../../../shared-components/heart.component';
 
 import { 
     SinglePropertyImage,
@@ -22,9 +24,19 @@ import { love, expandFull, location } from '../../../../../assets/icons';
 import { capitalize } from '../../../../utils/Formatters';
 
 export const PropertyImageCard = (props) => {
+    const [heartFill, setHeartFill] = useState('white');
+    const [heartStroke, setHearStroke] = useState('none');
     const { property } = props;
     const theme = useTheme();
-    const arr = [1,2,3,4,5,6,7,8]
+    const onSaveItem = async () => {
+        setHeartFill("red");
+        setHearStroke("red")
+        const savedItems = await AsyncStorage.getItem("saved_items");
+        const item = savedItems.find(item => item.id === propertyId);
+        if(item) {
+            const savedItems = await AsyncStorage.removeItem("saved_items")
+        }
+    }
 
     return(
         <Spacer type="margin" position="bottom" customSize={16}>
@@ -34,7 +46,11 @@ export const PropertyImageCard = (props) => {
                     <Aligner style={{height: "100%"}} direction="column" justify="space-between">
                         <Aligner style={{width: "100%"}} justify="flex-end">
                             <PropertyIconContainer>
-                                <SvgXml xml={love("white")} />
+                                <Heart
+                                    color={heartFill}
+                                    stroke={heartStroke}
+                                    property={property}
+                                />
                             </PropertyIconContainer>
                         </Aligner>
 

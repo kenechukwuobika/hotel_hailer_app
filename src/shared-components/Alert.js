@@ -11,10 +11,10 @@ import { Spacer } from './Spacer';
 import { Text } from './Text';
 import Button from './Button';
 
-import { clearLoginError } from '../redux/actions/authAction';
+import { clearAuthError } from '../redux/actions/authAction';
 
 const Alert = (props) => {
-    const { clearLoginError } = props;
+    const { clearAuthError } = props;
     const theme = useTheme();
     const fade = useRef(new Animated.Value(0)).current;
 
@@ -33,7 +33,7 @@ const Alert = (props) => {
             useNativeDriver: false,
         }).start(({ finished }) => {
             if(finished){
-                clearLoginError()
+                clearAuthError()
             }
         });
     }
@@ -101,7 +101,7 @@ const Alert = (props) => {
 }
 
 const mapDispatchToProps = { 
-    clearLoginError
+    clearAuthError
 }
 
 export default connect(null, mapDispatchToProps)(Alert);

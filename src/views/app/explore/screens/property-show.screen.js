@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ScrollView, View, Image } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import { useTheme } from 'styled-components';
-import { useRoute } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 
 import { PropertyImageCard } from '../components/property-image-card.component';
@@ -21,7 +20,7 @@ import { Aligner } from '../../../../shared-components/Aligner';
 import { caretRight } from '../../../../../assets/icons';
 import { formatPrice } from '../../../../utils/Formatters';
 
-const PropertyScreen = (props) => {
+const propertyShow = (props) => {
     const theme = useTheme();
     const [textHeight, setTextHeight] = useState(0);
     const { navigation, route, getOneProperty, property, getPropertyReview, reviews } = props;
@@ -91,7 +90,7 @@ const PropertyScreen = (props) => {
                                     setTextHeight(event.nativeEvent.layout.height)
                                 }}
                                 options={{
-                                    lineHeight: 21
+                                    lineHeight: "21px"
                                 }}
                                 >{property.shortDesc}</Text>
                             </Expandable>
@@ -231,7 +230,7 @@ const PropertyScreen = (props) => {
                                     setTextHeight(event.nativeEvent.layout.height)
                                 }}
                                 options={{
-                                    lineHeight: 21
+                                    lineHeight: "21px"
                                 }}
                                 >{property.shortDesc}</Text>
                             </Expandable>
@@ -289,4 +288,4 @@ const mapDispatchToProps = {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(propertyShow);

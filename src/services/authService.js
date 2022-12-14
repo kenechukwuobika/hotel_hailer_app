@@ -5,6 +5,6 @@ export const login = async (data) => {
     return await backend.post('/auth/login', data);
 }
 
-export const register = async () => {
-    return await axios.post('/login', {})
+export const signup = async (data) => {
+    return await backend.post('/auth/signup', data);
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { TouchableOpacity } from 'react-native';
 import { useTheme } from 'styled-components';
 
-import { loginAction, showLoading, clearLoginError } from '../../../../redux/actions/authAction';
+import { signupAction, showLoading, clearAuthError } from '../../../../redux/actions/authAction';
 
 import Banner from '../components/Banner';
 import { InputHollow, Label, Error } from '../../../../shared-components/Form';
@@ -15,71 +15,110 @@ import { Aligner } from '../../../../shared-components/Aligner';
 
 const RegisterScreen = (props) => {
     const theme = useTheme();
+    const { signupErrors, clearAuthError, signupAction, showLoading, clearLoading, isLoading, isSignedIn } = props;
     const [errors, setErrors] = useState({});
-    const [username, setUsername] = useState('');
+    const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [registerBtnDisabled, setRegisterBtnDisabled] = useState(true);
     
     useEffect(() => {
-        if(username && email && password){
+        clearAuthError();
+    }, []);
+    
+    useEffect(() => {
+        if(userName && email && password && Object.keys(errors).length === 0){
             setRegisterBtnDisabled(false)
         }
         else{
             setRegisterBtnDisabled(true)
         }
-    }, [username, email, password]);
+    }, [userName, email, password]);
+
+    // useEffect(() => {
+    //     if(isLoading){
+    //         setRegisterBtnDisabled(true)
+    //     }
+    // }, [isLoading])
 
     const navigateAway = () => {
-        props.navigation.push('login')
+        props.navigation.push('Login');
     }
 
     const onChangeUsername = text => {
-        setUsername(text);
-        validateUsername()
+        setUserName(text);
+        // validateUsername()
     }
 
     const onChangeEmail = text => {
         setEmail(text);
-        validateEmail();
+        // validateEmail();
     }
 
     const onChangePassword = text => {
         setPassword(text);
     }
 
-    const onRegister = () => {
-        // console.log(email)
-        // console.log(username)
-        // console.log(password)
-        props.navigation.navigate('home')
-    }
-
     const validateUsername = () => {
-        console.log(errors)
         const existingErrors = {...errors};
-        existingErrors.username = "Invalid username"
-        if(username.length < 2) {
-            setErrors(existingErrors)
+        if(userName.length < 2) {
+            existingErrors.userName = "Invalid username";
+            setErrors(existingErrors);
         }else{
-            clearErrors("username")
-
+            clearInputErrors("userName")
         }
     }
 
     const validateEmail = () => {
-        clearErrors("email");
         const existingErrors = {...errors};
-        existingErrors.email = "Invalid email";
-        if(email.length <= 2) {
-            setErrors(existingErrors)
+        
+        if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            existingErrors.email = "Invalid email";
+            setErrors(existingErrors);
+        }
+
+        else if(email.length < 4) {
+            existingErrors.email = "Invalid email";
+            setErrors(existingErrors);
+        }
+
+        else{
+            clearInputErrors("email");
         }
     }
 
-    const clearErrors = (key) => {
+    const clearInputErrors = (key) => {
         const existingErrors = {...errors};
-        delete(existingErrors[key])
-        setErrors(existingErrors)
+        delete(existingErrors[key]);
+        setErrors(existingErrors);
+    }
+
+    const onRegister = () => {
+        const registerData = {
+            userName,
+            email,
+            password
+        }
+        showLoading();
+        signupAction(registerData);
+        // props.navigation.push('Home');
+    }
+
+    const displayErrors = () => {
+        console.log(signupErrors)
+        if(signupErrors){
+            return signupErrors.map(signupError => {
+                return (
+                    <Spacer type="margin" position="bottom" size="sm">
+                        <Aligner justify="center" align="center">
+                            <Error>{signupError}</Error>
+                        </Aligner>
+                    </Spacer>
+                )
+            });
+        }
+
+        return(<></>);
     }
 
     return (
@@ -91,22 +130,24 @@ const RegisterScreen = (props) => {
                 />
                 
                 <Spacer type="padding" position="horizontal" size="lg">
+
+                    {displayErrors()}
                     
                     <Spacer type="margin" position="bottom" size="md">
                         <Aligner justify="space-between" align="center">
                             <Label>E-mail</Label>
                             {errors.email && <Error>{errors.email}</Error>}
                         </Aligner>
-                        <InputHollow placeholder='Enter email' value={email} onChangeText={onChangeEmail} />
+                        <InputHollow error={errors.email ? true : false} placeholder='Enter email' value={email} onChangeText={onChangeEmail} />
                     </Spacer>
 
                     <Spacer type="margin" position="bottom" size="md" customSize={4}>
                         <Aligner justify="space-between" align="center">
                             <Label>Username</Label>
-                            {errors.username && <Error>{errors.username}</Error>}
+                            {errors.userName && <Error>{errors.userName}</Error>}
                         </Aligner>
-                        <InputHollow error={errors.username ? true : false} placeholder='Enter username' value={username} onChangeText={onChangeUsername} />
-                        <Error>{errors.username && errors.username}</Error>
+                        <InputHollow error={errors.userName ? true : false} placeholder='Enter username' value={userName} onChangeText={onChangeUsername} />
+                        <Error>{errors.userName && errors.userName}</Error>
                     </Spacer>
 
                     <Spacer type="margin" position="bottom" size="md">
@@ -146,18 +187,18 @@ const RegisterScreen = (props) => {
 }
 
 const mapStateToProps = ({ auth }) => {
-    const { error, isLoading, isSignedIn } = auth;
+    const { signupErrors, isLoading, isSignedIn } = auth;
     return {
-        error,
+        signupErrors,
         isLoading,
         isSignedIn
     }
 }
 
 const mapDispatchToProps = { 
-    loginAction,
+    signupAction,
     showLoading,
-    clearLoginError
+    clearAuthError
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

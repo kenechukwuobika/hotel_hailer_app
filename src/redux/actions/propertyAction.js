@@ -3,21 +3,22 @@ import { getNearbyProperties, getOnePropertyService } from '../../services/prope
 export const getNearbyProperty = (data) => async (dispatch, getState) => {
     try {
         const response = await getNearbyProperties(data);
-        // console.log(response.data);
         dispatch({
             type: 'GET_NEARBY_PROPERTIES',
             payload: response.data.data,
         });
     } catch (error) {
-        // console.log(error['AxiosError'])
-        // let errorMessage = "Something went wrong";
-        // if(error && error.response) {
-        //     errorMessage = error.response.data.message;
-        // }
-        // dispatch({
-        //     type: "SIGN_IN_ERROR",
-        //     payload: error
-        // })
+        if( error.response.status === 401 || error.response.status === 403 ) {
+            dispatch({
+                type: "UNAUTHENTICATED",
+                payload: error
+            })
+        }
+
+        dispatch({
+            type: "NETWORK_ERROR",
+            payload: error
+        })
     }
 }
 
@@ -51,13 +52,6 @@ export const showLoading = () => (dispatch, getState) => {
 export const clearLoading = () => (dispatch, getState) => {
     dispatch({
         type: "CLEAR_LOADING",
-        payload: null
-    })
-}
-
-export const clearLoginError = () => (dispatch, getState) => {
-    dispatch({
-        type: "SIGN_IN_ERROR",
         payload: null
     })
 }

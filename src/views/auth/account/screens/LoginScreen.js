@@ -28,8 +28,12 @@ const LoginScreen = (props) => {
     const slideUp = new Animated.Value(0);
 
     useEffect(() => {
+        clearLoginError();
+    }, [])
+
+    useEffect(() => {
         if(isSignedIn){
-            props.navigation.push("home")
+            props.navigation.push("Home");
         }
     }, [isSignedIn])
 
@@ -75,7 +79,7 @@ const LoginScreen = (props) => {
     }
 
     const navigateAway = () => {
-        props.navigation.push('register')
+        props.navigation.push('Register')
     }
 
     const onRememberMe = () => {

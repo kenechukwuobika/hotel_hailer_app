@@ -12,7 +12,7 @@ import { love, location } from '../../../../../assets/icons';
 
 import { capitalize, formatPrice } from '../../../../utils/Formatters';
 
-export const PopularPropertiesCard = (props) => {
+export const propertyListCard = (props) => {
     const theme = useTheme();
     const { item, onPress } = props;
 
@@ -30,13 +30,14 @@ export const PopularPropertiesCard = (props) => {
                     </Aligner>
                 </Spacer>
 
-                <Aligner justify="space-between">
+                <Aligner justify="space-between" wrap="wrap">
                     <Aligner>
                         <Spacer type="margin" position="right" customSize={4}>
                             <SvgXml xml={location()} width={12} height={12} />
                         </Spacer>
                         <Text>{capitalize(item.state)} ({Math.round(item.distance)}{item.unit})</Text>
                     </Aligner>
+                    
                     <Text>
                         <Text options={{ 
                             color: theme.colors.primary.default,

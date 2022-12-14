@@ -49,7 +49,8 @@ export const Menu = (props) => {
             return (
                 <Spacer key={item} type="margin" position="right" customSize={`${marginRight}`}>
                     <TouchableOpacity onPress={() => onChangeMenuItem(index)}>
-                        <MenuItem style={{ borderRadius: 5, backgroundColor }}>
+                        {/* <MenuItem style={{ borderRadius: 5, backgroundColor }}> */}
+                        <MenuItem style={[MenuItem, { backgroundColor }]}>
                             <Spacer type="padding" position="horizontal" customSize={8}>
                                 <Spacer type="padding" position="vertical" customSize={8}>
                                     <Text options={{fontFamily, color}}>{item}</Text>

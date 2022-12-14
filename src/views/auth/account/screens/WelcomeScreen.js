@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { TextContainer, BlueCircle, WhiteCircle, CircleContainer } from '../styles/accountStyles';
 import { Container, BottomContainer } from '../../../../shared-components/Container';
@@ -9,17 +9,34 @@ import Button from '../../../../shared-components/Button';
 import { Spacer } from '../../../../shared-components/Spacer';
 import { Aligner } from '../../../../shared-components/Aligner';
 
-import { loginAction, clearLoginError } from '../../../../redux/actions/authAction';
 import { useTheme } from 'styled-components';
 
 const WelcomeScreen = (props) => {
+    const [ token, setToken ] = useState(null);
     const theme = useTheme();
+    const { navigation } = props;
+    
+    const getToken = async () => {
+        const authToken = await AsyncStorage.getItem("authToken");
+        return authToken;
+    }
+
+    useEffect(() => {
+        getToken().then(res => setToken(res));
+    }, [])
+
+    useEffect(() => {
+        if(token) {
+            navigation.push("Home");
+        }
+    }, [token])
+
     const navigateToRegister = () => {
-        props.navigation.push('register')
+        navigation.push('Register')
     }
 
     const navigateToLogin = () => {
-        props.navigation.push('login')
+        navigation.push('Login')
     }
 
     return (
@@ -73,16 +90,4 @@ const WelcomeScreen = (props) => {
     );
 }
 
-const mapStateToProps = ({ auth }) => {
-    const { error } = auth;
-    return {
-        error
-    }
-}
-
-const mapDispatchToProps = { 
-    loginAction,
-    clearLoginError
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen)
+export default WelcomeScreen;

@@ -11,7 +11,6 @@ const HorizontalList = (props) => {
     return(
         <FlatList 
             data={data}
-            horizontal={true}
             scrollEnabled={props.scrollEnabled}
             renderItem={({ item }) => {
                 return(

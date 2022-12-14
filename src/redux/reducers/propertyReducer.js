@@ -2,7 +2,7 @@ const initialState = {
     isLoading: false,
     user: null,
     error: null,
-    isSignedIn: false,
+    isSignedIn: true,
     userid: null
 }
 
@@ -16,6 +16,8 @@ const propertyReducer = (state = {...initialState}, action) => {
             return {...state, isLoading: true};
         case 'CLEAR_LOADING':
             return {...state, isLoading: false};
+        case 'UNAUTHENTICATED':
+            return {...state, isSignedIn: false};
         default:
             return state;
     }

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import { getNearbyProperty } from '../../../../redux/actions/propertyAction';
 
-import VerticalList from '../components/vertical-list.component';
+import HorizontalList from '../components/horizontal-list.component';
 import { Menu } from '../components/menu.component';
 
 import { Text } from '../../../../shared-components/Text';
@@ -20,60 +20,28 @@ import { PopularPropertiesCard, PopularPropertiesLoader } from '../components/po
 import { NearbyPropertiesCard, NearbyPropertiesLoader} from '../components/nearby-properties.component';
 import TitleBreak from '../components/title-break.component';
 
-import { hideBottomBar } from '../../../../utils/hideBottomBar';
-
 import { 
     love,
     location as svgLocation
 } from '../../../../../assets/icons';
 
 const HomeScreen = (props) => {
-    const { getNearbyProperty, nearbyProperties, navigation, route } = props;
-    const { title, type } = route.params;
+    const { getNearbyProperty, nearbyProperties, navigation } = props;
     const theme = useTheme();
-
-    useEffect(() => {
-        hideBottomBar(navigation);
-    }, []);
-
-    const selectProperty = (propertyId) => {
-        navigation.push("propertyShow", { propertyId })
-    }
-
-    const renderPopularProducts = () => {
-        const arr = [1,2,3,4,5]
-        if(!nearbyProperties || nearbyProperties.length === 0) {
-            return(
-                <VerticalList data={arr} scrollEnabled={false}>
-                    <PopularPropertiesLoader />
-                </VerticalList>
-            )
-        }
-        
-        return(
-            <VerticalList data = {nearbyProperties}>
-                <PopularPropertiesCard onPress={selectProperty} />
-            </VerticalList>
-        )
-    }
+    const menuItems = ['Hotel', 'Motel', 'Villa', 'Home', 'Apartment'];
+    const [location, setLocation] = useState(null);
 
     return (
         <Container style={{backgroundColor: "white"}}>
             <TitleBar
                 navigation={navigation}
-                text = {title}
+                text = "Search Place"
+                type = "search"
+                link = {false}
             />
 
-            <ScrollView>
-
-                <TitleBreak title="Popular" />
-
-                <Spacer type="padding" position="left" customSize={24}>
-                    {renderPopularProducts()}
-                </Spacer>
-                
-                <Spacer type="margin" position="bottom" customSize={16} />
-            </ScrollView>
+            <Text>Recent Searches</Text>
+            
         </Container>
     );
 

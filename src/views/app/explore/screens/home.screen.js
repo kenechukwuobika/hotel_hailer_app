@@ -6,6 +6,7 @@ import * as Location from 'expo-location';
 import { connect } from 'react-redux';
 
 import { getNearbyProperty } from '../../../../redux/actions/propertyAction';
+import { signoutAction } from '../../../../redux/actions/authAction';
 
 import HorizontalList from '../components/horizontal-list.component';
 import { Menu } from '../components/menu.component';
@@ -26,7 +27,7 @@ import {
 } from '../../../../../assets/icons';
 
 const HomeScreen = (props) => {
-    const { getNearbyProperty, nearbyProperties, navigation } = props;
+    const { getNearbyProperty, nearbyProperties, navigation, isSignedIn, signoutAction } = props;
     const theme = useTheme();
     const menuItems = ['Hotel', 'Motel', 'Villa', 'Home', 'Apartment'];
     const [location, setLocation] = useState(null);
@@ -79,6 +80,14 @@ const HomeScreen = (props) => {
     }, [])
 
     useEffect(() => {
+        if (!isSignedIn) {
+            signoutAction();
+            props.navigation.navigate("Welcome");
+        }
+
+    }, [isSignedIn])
+
+    useEffect(() => {
         if(location){
             const { latitude, longitude } = location.coords;
             const unit = "km";
@@ -88,7 +97,11 @@ const HomeScreen = (props) => {
     }, [location]);
 
     const selectProperty = (propertyId) => {
-        navigation.push("propertyScreen", { propertyId })
+        navigation.push("propertyShow", { propertyId })
+    }
+
+    const seeAll = (type) => {
+        navigation.push("propertyList", { title: "popular", type })
     }
 
     const renderPopularProducts = () => {
@@ -149,23 +162,27 @@ const HomeScreen = (props) => {
                             </Text>
                         </Aligner>
                     </Spacer>
-
-                    <Menu menuItems={menuItems} />
                 </Spacer>
 
-                <TitleBreak title="Popular" />
+                <>
+                    <Spacer type="padding" position="horizontal" customSize={24}>
+                        <Menu menuItems={menuItems} />
+                    </Spacer>
 
-                <Spacer type="padding" position="left" customSize={24}>
-                    {renderPopularProducts()}
-                </Spacer>
-                
-                <Spacer type="margin" position="bottom" customSize={16} />
+                    <TitleBreak title="Popular" onPress={() => seeAll("popular")} />
 
-                <TitleBreak title="Nearby" />
+                    <Spacer type="padding" position="left" customSize={24}>
+                        {renderPopularProducts()}
+                    </Spacer>
+                    
+                    <Spacer type="margin" position="bottom" customSize={16} />
 
-                <Spacer type="padding" position="left" customSize={24}>
-                    {renderNearbyProducts()}
-                </Spacer>
+                    <TitleBreak title="Nearby" onPress={() => seeAll("popular")} />
+
+                    <Spacer type="padding" position="left" customSize={24}>
+                        {renderNearbyProducts()}
+                    </Spacer>
+                </>
             </ScrollView>
         </Container>
     );
@@ -173,15 +190,17 @@ const HomeScreen = (props) => {
 }
 
 const mapStateToProps = ({ propertyReducer }) => {
-    const { nearbyProperties } = propertyReducer;
+    const { nearbyProperties, isSignedIn } = propertyReducer;
     
     return {
-        nearbyProperties
+        nearbyProperties,
+        isSignedIn
     }
 }
 
 const mapDispatchToProps = {
-    getNearbyProperty
+    getNearbyProperty,
+    signoutAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
