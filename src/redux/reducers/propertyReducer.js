@@ -12,6 +12,8 @@ const propertyReducer = (state = {...initialState}, action) => {
             return {...state, nearbyProperties: action.payload};
         case 'GET_ONE_PROPERTY':
             return {...state, property: action.payload};
+        case 'CLEAR_ONE_PROPERTY':
+            return {...state, property: null};
         case 'SHOW_LOADING':
             return {...state, isLoading: true};
         case 'CLEAR_LOADING':

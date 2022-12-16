@@ -30,7 +30,7 @@ const mapDispatchToProps = {
 }
 
 export const TitleBar = connect(null, mapDispatchToProps)((props) => {
-    const { navigation, type, link, showModal, hideModal } = props;
+    const { navigation, type, link, showModal, hideModal, backBtnDisabled, marginBottom } = props;
     const theme = useTheme();
     const canGoBack = navigation.canGoBack();
 
@@ -54,7 +54,7 @@ export const TitleBar = connect(null, mapDispatchToProps)((props) => {
                 <TitleBarStyle>
                     <Aligner justify="center" align="center" style={{ flex: 1 }}>
                         {
-                            canGoBack && 
+                            canGoBack && backBtnDisabled &&
                             <Spacer type="margin" position="right" customSize={8}>
                                 <TouchableOpacity onPress={goBack}>
                                     <SvgXml xml={arrowLeft()} />
@@ -77,13 +77,16 @@ export const TitleBar = connect(null, mapDispatchToProps)((props) => {
             <View style={{
                 position: "relative",
             }}>
-                <TouchableOpacity onPress={goBack} style={{
-                    position: "absolute",
-                    left: 0,
-                    bottom: 0,
-                }} >
-                    <SvgXml xml={arrowLeft()} />
-                </TouchableOpacity>
+                {
+                    canGoBack && !backBtnDisabled &&
+                    <TouchableOpacity onPress={goBack} style={{
+                        position: "absolute",
+                        left: 0,
+                        bottom: 0,
+                    }} >
+                        <SvgXml xml={arrowLeft()} />
+                    </TouchableOpacity>
+                }
                 <Aligner justify="center" align="center">
                     <Text options={{ fontFamily: theme.fontFamilies.ralewayExtraBold }}>{props.text}</Text>
                 </Aligner>
@@ -92,16 +95,15 @@ export const TitleBar = connect(null, mapDispatchToProps)((props) => {
     }
 
     return (
-        <Spacer type="margin" position="top" customSize={24}>
-             <Spacer type="padding" position="horizontal" customSize={24}>
-                <Spacer type="margin" position="bottom" customSize={8}>
-                    {displayBar()}
-                </Spacer>
-             </Spacer>
+        <Spacer type="padding" position="horizontal" customSize={24}>
+            <Spacer type="margin" position="bottom" customSize={marginBottom}>
+                {displayBar()}
+            </Spacer>
         </Spacer>
     )
 })
 
 TitleBar.defaultProps = {
-    link: true
+    link: true,
+    marginBottom: 24
 };

@@ -30,7 +30,7 @@ export const propertyListCard = (props) => {
                     </Aligner>
                 </Spacer>
 
-                <Aligner justify="space-between" wrap="wrap">
+                <Aligner justify="space-between">
                     <Aligner>
                         <Spacer type="margin" position="right" customSize={4}>
                             <SvgXml xml={location()} width={12} height={12} />

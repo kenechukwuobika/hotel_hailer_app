@@ -145,6 +145,7 @@ const HomeScreen = (props) => {
                 navigation={navigation}
                 text = "Search Place"
                 type = "search"
+                marginBottom = {8}
             />
 
             <ScrollView>

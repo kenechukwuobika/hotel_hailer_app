@@ -39,20 +39,20 @@ export const signupAction = (signupDetails) => async (dispatch, getState) => {
         });
     } catch (error) {
         let errorMessage = "Something went wrong";
+
+        console.log(error)
+
+        let errorMessages = [errorMessage];
         
         if(error && error.response !== undefined && error.response.data !== undefined) {
-            errorMessage = error.response.data.message;
+            const { errors } = error.response.data;
+
+            const keys = Object.keys(errors);
+            
+            errorMessages = keys.map(key => {
+                return errors[key].message;
+            });
         }
-
-        const { errors } = error.response.data;
-
-        const keys = Object.keys(errors);
-        
-        const errorMessages = keys.map(key => {
-            return errors[key].message;
-        });
-
-        // console.log(errorMessages)
 
         dispatch({
             type: "SIGN_UP_ERROR",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, ScrollView, FlatList } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import { signupAction, showLoading, clearAuthError } from '../../../../redux/actions/authAction';
@@ -107,9 +107,9 @@ const RegisterScreen = (props) => {
     const displayErrors = () => {
         console.log(signupErrors)
         if(signupErrors){
-            return signupErrors.map(signupError => {
+            return signupErrors.map((signupError, index) => {
                 return (
-                    <Spacer type="margin" position="bottom" size="sm">
+                    <Spacer key={index} type="margin" position="bottom" size="sm">
                         <Aligner justify="center" align="center">
                             <Error>{signupError}</Error>
                         </Aligner>
@@ -129,58 +129,59 @@ const RegisterScreen = (props) => {
                     subTitle="Join the world of opportunities"
                 />
                 
-                <Spacer type="padding" position="horizontal" size="lg">
+                <Spacer type="margin" position="bottom" customSize={4}>
+                    <Spacer type="padding" position="horizontal" size="lg">
 
-                    {displayErrors()}
-                    
-                    <Spacer type="margin" position="bottom" size="md">
-                        <Aligner justify="space-between" align="center">
-                            <Label>E-mail</Label>
-                            {errors.email && <Error>{errors.email}</Error>}
-                        </Aligner>
-                        <InputHollow error={errors.email ? true : false} placeholder='Enter email' value={email} onChangeText={onChangeEmail} />
+                        {displayErrors()}
+                        
+                        <Spacer type="margin" position="bottom" size="md">
+                            <Aligner justify="space-between" align="center">
+                                <Label>E-mail</Label>
+                                {errors.email && <Error>{errors.email}</Error>}
+                            </Aligner>
+                            <InputHollow error={errors.email ? true : false} placeholder='Enter email' value={email} onChangeText={onChangeEmail} />
+                        </Spacer>
+
+                        <Spacer type="margin" position="bottom" size="md" customSize={4}>
+                            <Aligner justify="space-between" align="center">
+                                <Label>Username</Label>
+                                {errors.userName && <Error>{errors.userName}</Error>}
+                            </Aligner>
+                            <InputHollow error={errors.userName ? true : false} placeholder='Enter username' value={userName} onChangeText={onChangeUsername} />
+                            <Error>{errors.userName && errors.userName}</Error>
+                        </Spacer>
+
+                        <Spacer type="margin" position="bottom" size="md">
+                            <Label>Password</Label>
+                            <InputHollow secureTextEntry={true} placeholder='Enter password' value={password} onChangeText={onChangePassword} />
+                        </Spacer>
+
+                        <Spacer type="margin" position="bottom" size="xl">
+                            <Aligner justify="center" align="center" >
+                                <Text variant="caption">By joining, you agree to Hotel's </Text>
+                                <TouchableOpacity>
+                                    <Text variant="caption" options={{ fontFamily: theme.fontFamilies.mulishBold, color: theme.colors.primary.default, textDecoration: 'underline' }}>Terms of Service</Text>
+                                </TouchableOpacity>
+                            </Aligner>
+                        </Spacer>
+
+                        <Spacer type="margin" position="bottom" customSize={20}>
+                            <Button 
+                                onPress={onRegister}
+                                disabled={registerBtnDisabled}
+                                text="Sign up"
+                            />
+                        </Spacer>
+
                     </Spacer>
-
-                    <Spacer type="margin" position="bottom" size="md" customSize={4}>
-                        <Aligner justify="space-between" align="center">
-                            <Label>Username</Label>
-                            {errors.userName && <Error>{errors.userName}</Error>}
-                        </Aligner>
-                        <InputHollow error={errors.userName ? true : false} placeholder='Enter username' value={userName} onChangeText={onChangeUsername} />
-                        <Error>{errors.userName && errors.userName}</Error>
-                    </Spacer>
-
-                    <Spacer type="margin" position="bottom" size="md">
-                        <Label>Password</Label>
-                        <InputHollow secureTextEntry={true} placeholder='Enter password' value={password} onChangeText={onChangePassword} />
-                    </Spacer>
-
-                    <Spacer type="margin" position="bottom" size="xl">
-                        <Aligner justify="center" align="center" >
-                            <Text variant="caption">By joining, you agree to Hotel's </Text>
-                            <TouchableOpacity>
-                                <Text variant="caption" options={{ fontFamily: theme.fontFamilies.mulishBold, color: theme.colors.primary.default, textDecoration: 'underline' }}>Terms of Service</Text>
-                            </TouchableOpacity>
-                        </Aligner>
-                    </Spacer>
-
-                    <Spacer type="margin" position="bottom" customSize={135}>
-                        <Button 
-                            onPress={onRegister}
-                            disabled={registerBtnDisabled}
-                            text="Sign up"
-                        />
-                    </Spacer>
-
                 </Spacer>
-                <BottomContainer>
-                    <Aligner justify="center" align="center" >
-                        <Text>Already a member? </Text>
-                        <TouchableOpacity onPress={navigateAway}>
-                            <Text options={{ fontFamily: theme.fontFamilies.mulishBold, color: theme.colors.primary.default }}>Login</Text>
-                        </TouchableOpacity>
-                    </Aligner>
-                </BottomContainer>
+
+                <Aligner justify="center" align="center" >
+                    <Text>Already a member? </Text>
+                    <TouchableOpacity onPress={navigateAway}>
+                        <Text options={{ fontFamily: theme.fontFamilies.mulishBold, color: theme.colors.primary.default }}>Login</Text>
+                    </TouchableOpacity>
+                </Aligner>
             </Container>
         </>
     );

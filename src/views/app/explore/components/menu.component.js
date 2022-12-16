@@ -65,7 +65,7 @@ export const Menu = (props) => {
 
     return (
         <Spacer type="margin" position="bottom" customSize={16}>
-            <Aligner>
+            <Aligner justify="space-between">
                 {displayMenuItem()}
             </Aligner>
         </Spacer>

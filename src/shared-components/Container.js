@@ -14,6 +14,7 @@ export const Container = styled(ScrollView).attrs({
     padding: 0;
     flex: 1;
     backgroundColor: transparent;
+    paddingTop: ${RFValue(24)}px
 `;
 
 // export const Container = styled.View`

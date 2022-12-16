@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components';
 import PropertyNavigator from './PropertyNavigator';
 
 import HomeScreen from '../../views/app/explore/screens/home.screen';
-import NotificationsScreen from '../../views/app/notifications/screens/NotificationsScreen';
+import NotificationsScreen from '../../views/app/notifications/screens/notification.screen';
 
 import SafeArea from '../../shared-components/SafeArea';
 

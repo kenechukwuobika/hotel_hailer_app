@@ -20,30 +20,38 @@ export const PopularPropertiesCard = (props) => {
         <Spacer type="margin" position="right" customSize={24}>
             <PopularPropertyContainer onPress={() => onPress(item._id)}>
                 <PopularPropertyImage source={{ uri:`${item.coverImage}` }} />
-                
                 <Spacer type="margin" position="bottom" customSize={8} />
                 
                 <Spacer type="margin" position="bottom" customSize={8}>
                     <Aligner justify="space-between">
-                        <Text options={{ fontFamily: theme.fontFamilies.mulishSemiBold }}>{capitalize(item.name)}</Text>
+                        <Text 
+                            options={{ fontFamily: theme.fontFamilies.mulishSemiBold }}
+                        >
+                            {capitalize(item.name)}
+                        </Text>
+
                         <SvgXml xml={love("none", theme.colors.greys.g3)} />
                     </Aligner>
                 </Spacer>
 
-                <Aligner justify="space-between">
-                    <Aligner>
-                        <Spacer type="margin" position="right" customSize={4}>
-                            <SvgXml xml={location()} width={12} height={12} />
-                        </Spacer>
-                        <Text>{capitalize(item.state)} ({Math.round(item.distance)}{item.unit})</Text>
-                    </Aligner>
+                <Aligner justify="space-between" wrap="wrap">
+                    <Spacer type="margin" position="right" customSize={8}>
+                        <Aligner>
+                            <Spacer type="margin" position="right" customSize={4}>
+                                <SvgXml xml={location()} width={12} height={12} />
+                            </Spacer>
+                            <Text>{capitalize(item.state)} ({Math.round(item.distance)}{item.unit})</Text>
+                        </Aligner>
+                    </Spacer>
+
                     <Text>
-                        <Text options={{ 
-                            color: theme.colors.primary.default,
-                            fontFamily: theme.fontFamilies.ralewaySemiBold 
-                        }}>
-                            ₦{formatPrice(item.unitPrice)}/
-                        </Text>
+                            <Text options={{ 
+                                color: theme.colors.primary.default,
+                                fontFamily: theme.fontFamilies.ralewaySemiBold 
+                            }}>
+                                ₦{formatPrice(item.unitPrice)}/
+                            </Text>
+
                         <Text variant="caption" options={{ 
                             color: theme.colors.greys.g1
                         }}>night</Text>

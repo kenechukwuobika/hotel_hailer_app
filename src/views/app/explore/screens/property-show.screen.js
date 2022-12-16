@@ -13,7 +13,7 @@ import { TitleBar } from '../../../../shared-components/TitleBar';
 import { Spacer } from '../../../../shared-components/Spacer';
 import Expandable from '../components/expandable.component';
 
-import { getOneProperty } from '../../../../redux/actions/propertyAction';
+import { getOneProperty, clearOneProperty } from '../../../../redux/actions/propertyAction';
 import { getPropertyReview } from '../../../../redux/actions/reviewAction';
 import Button from '../../../../shared-components/Button';
 import { Aligner } from '../../../../shared-components/Aligner';
@@ -23,7 +23,7 @@ import { formatPrice } from '../../../../utils/Formatters';
 const propertyShow = (props) => {
     const theme = useTheme();
     const [textHeight, setTextHeight] = useState(0);
-    const { navigation, route, getOneProperty, property, getPropertyReview, reviews } = props;
+    const { navigation, route, getOneProperty, clearOneProperty, property, getPropertyReview, reviews } = props;
     const { propertyId } = route.params;
     
     useEffect(() => {
@@ -47,6 +47,8 @@ const propertyShow = (props) => {
             getOneProperty(propertyId);
             getPropertyReview(propertyId, {fields: "user"});
         }
+
+        return () => clearOneProperty();
     }, [propertyId]);
 
 
@@ -284,6 +286,7 @@ const mapStateToProps = ({ propertyReducer, reviewReducer }) => {
 
 const mapDispatchToProps = {
     getOneProperty,
+    clearOneProperty,
     getPropertyReview
 }
 

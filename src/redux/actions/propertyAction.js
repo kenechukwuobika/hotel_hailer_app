@@ -42,6 +42,12 @@ export const getOneProperty = (id) => async (dispatch, getState) => {
     }
 }
 
+export const clearOneProperty = (id) => async (dispatch, getState) => {
+    dispatch({
+        type: 'CLEAR_ONE_PROPERTY'
+    });
+}
+
 export const showLoading = () => (dispatch, getState) => {
     dispatch({
         type: "SHOW_LOADING",
