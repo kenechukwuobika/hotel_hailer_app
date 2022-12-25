@@ -243,7 +243,8 @@ const propertyShow = (props) => {
                     </Text>
 
                     <View style={{ width: 156 }}>
-                        <Button 
+                        <Button
+                            variant="solid" 
                             text="Book now"
                         />
                     </View>

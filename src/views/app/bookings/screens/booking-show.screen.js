@@ -92,14 +92,16 @@ const BookingShow = (props) => {
                 <Aligner justify="center">
                     <View style={{ width: 156 }}>
                         <Spacer type="margin" position="right" customSize={16}>
-                            <Button 
+                            <Button
+                                variant="hollow"
                                 text="Cancel Booking"
                             />
                         </Spacer>
                     </View>
 
                     <View style={{ width: 156 }}>
-                        <Button 
+                        <Button
+                            variant="solid"
                             text="Quick Top-up"
                         />
                     </View>

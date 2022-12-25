@@ -13,19 +13,46 @@ import { clearLoading } from '../redux/actions/authAction';
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 export const ButtonView = styled(AnimatedTouchableOpacity)`
-    background-color: ${props => props.backgroundColor};
     justify-content: center;
     align-items: center;
     height: ${RFValue(45)}px;
     width: 100%;
+    background-color: ${props => props.backgroundColor};
     border-radius: ${RFValue(8)}px
+`;
+
+const defaultStyles = () => `
+    justify-content: center;
+    align-items: center;
+    height: ${RFValue(45)}px;
+    width: 100%;
+`
+
+const solid = (backgroundColor) => `
+    background-color: ${backgroundColor};
+    border-radius: ${RFValue(8)}px
+`;
+
+const hollow = (backgroundColor) => `
+    border-radius: ${RFValue(8)}px;
+    background-color: transparent;
+    border-color: ${backgroundColor};
+    border-width: 2px;
+`;
+
+const variants = {
+    solid,
+    hollow
+}
+
+const ButtonStyle = styled(TouchableOpacity)`
+    ${() => defaultStyles()}
+    ${(props) => variants[props.variant](props.backgroundColor)}
 `;
 
 const Button = (props) => {
     const theme = useTheme();
-    const { type, isLoading, clearLoading, hollow } = props;
-    
-    if(hollow) {}
+    const { type, isLoading, clearLoading, variant } = props;
 
     let backgroundColor = theme.colors.primary.default;
     
@@ -44,7 +71,7 @@ const Button = (props) => {
             break;
     }
 
-    let textColor = theme.colors.white;
+    let textColor = variant === 'solid' ? theme.colors.white : theme.colors.primary.default;
 
     useEffect(() => {
         clearLoading();
@@ -54,9 +81,11 @@ const Button = (props) => {
         props.onPress();
     }
 
-    if(props.disabled){
-        backgroundColor = theme.colors.greys.g4;
-        textColor = "#A7A9BC";
+    if(variant === 'solid') {
+        if(props.disabled){
+            backgroundColor = theme.colors.greys.g4;
+            textColor = "#A7A9BC";
+        }
     }
 
     const displayChildren = () => {
@@ -73,13 +102,13 @@ const Button = (props) => {
     }
 
     return (
-        <ButtonView onPress={onPress} disabled={props.disabled} style={{backgroundColor: backgroundColor}}>
+        <ButtonStyle onPress={onPress} disabled={props.disabled} backgroundColor={backgroundColor} {...props}>
             <Text options={{
                 color: textColor
             }}>
                 {displayChildren()}
             </Text>
-        </ButtonView>
+        </ButtonStyle>
     )
 }
 

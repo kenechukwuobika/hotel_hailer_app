@@ -166,7 +166,8 @@ const RegisterScreen = (props) => {
                         </Spacer>
 
                         <Spacer type="margin" position="bottom" customSize={20}>
-                            <Button 
+                            <Button
+                                variant="solid" 
                                 onPress={onRegister}
                                 disabled={registerBtnDisabled}
                                 text="Sign up"

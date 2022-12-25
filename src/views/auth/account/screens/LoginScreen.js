@@ -129,6 +129,7 @@ const LoginScreen = (props) => {
 
                     <Spacer type="margin" position="bottom" customSize={135}>
                         <Button
+                            variant="solid"
                             onPress={onLogin}
                             disabled={loginBtnDisabled}
                             text="Login"

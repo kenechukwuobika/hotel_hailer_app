@@ -71,7 +71,8 @@ const WelcomeScreen = (props) => {
                 <BottomContainer>
                     <Spacer type="margin" position="bottom" size="sm">
                         <Spacer type="padding" position="horizontal" size="lg">
-                            <Button 
+                            <Button
+                                variant="solid" 
                                 onPress={navigateToRegister}
                                 text="Sign up"
                             />
