@@ -1,8 +1,8 @@
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components';
 
-export const Container = styled(ScrollView).attrs({
+export const Container = styled(View).attrs({
     contentContainerStyle: {
         height: '100%',
         flexGrow: 1,

@@ -54,6 +54,8 @@ const Banner = (props) => {
                 return setIsKeyboadVisible(false)
             }
         );
+
+        () => Keyboard.removeAllListeners();
     }, []);
 
     return (

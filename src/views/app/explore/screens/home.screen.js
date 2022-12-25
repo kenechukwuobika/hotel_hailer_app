@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View, Image, TouchableOpacity, ScrollView, PermissionsAndroid } from 'react-native';
+import { ScrollView } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useTheme } from 'styled-components';
 import * as Location from 'expo-location';
@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { getNearbyProperty } from '../../../../redux/actions/propertyAction';
 import { signoutAction } from '../../../../redux/actions/authAction';
 
-import HorizontalList from '../components/horizontal-list.component';
+import ScrollList from '../../../../shared-components/scroll-list.component';
 import { Menu } from '../components/menu.component';
 
 import { Text } from '../../../../shared-components/Text';
@@ -108,16 +108,16 @@ const HomeScreen = (props) => {
         const arr = [1,2,3,4,5]
         if(!nearbyProperties || nearbyProperties.length === 0) {
             return(
-                <HorizontalList data={arr} scrollEnabled={false}>
+                <ScrollList data={arr} scrollEnabled={false} horizontal={true}>
                     <PopularPropertiesLoader />
-                </HorizontalList>
+                </ScrollList>
             )
         }
         
         return(
-            <HorizontalList data = {nearbyProperties}>
+            <ScrollList data = {nearbyProperties} horizontal={true}>
                 <PopularPropertiesCard onPress={selectProperty} />
-            </HorizontalList>
+            </ScrollList>
         )
     }
 
@@ -126,16 +126,16 @@ const HomeScreen = (props) => {
         
         if(!nearbyProperties || nearbyProperties.length === 0) {
             return(
-                <HorizontalList data={arr} scrollEnabled={false}>
+                <ScrollList data={arr} scrollEnabled={false} horizontal={true}>
                     <NearbyPropertiesLoader />
-                </HorizontalList>
+                </ScrollList>
             )
         }
         
         return(
-            <HorizontalList data = {nearbyProperties}>
+            <ScrollList data = {nearbyProperties} horizontal={true}>
                 <NearbyPropertiesCard onPress={selectProperty} />
-            </HorizontalList>
+            </ScrollList>
         )
     }
 

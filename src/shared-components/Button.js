@@ -23,8 +23,12 @@ export const ButtonView = styled(AnimatedTouchableOpacity)`
 
 const Button = (props) => {
     const theme = useTheme();
-    const { type, isLoading, clearLoading } = props;
+    const { type, isLoading, clearLoading, hollow } = props;
+    
+    if(hollow) {}
+
     let backgroundColor = theme.colors.primary.default;
+    
     switch (type) {
         case "primary":
             backgroundColor = theme.colors.primary.default;
@@ -39,6 +43,7 @@ const Button = (props) => {
         default:
             break;
     }
+
     let textColor = theme.colors.white;
 
     useEffect(() => {

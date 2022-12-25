@@ -25,11 +25,11 @@ const WelcomeScreen = (props) => {
         getToken().then(res => setToken(res));
     }, [])
 
-    // useEffect(() => {
-    //     if(token) {
-    //         navigation.push("Home");
-    //     }
-    // }, [token])
+    useEffect(() => {
+        if(token) {
+            navigation.push("Home");
+        }
+    }, [token])
 
     const navigateToRegister = () => {
         navigation.push('Register')

@@ -71,7 +71,7 @@ const LoginScreen = (props) => {
 
     const onLogin = () => {
         const loginData = {
-            username: usernameEmail,
+            userName: usernameEmail,
             password
         }
         showLoading();

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import { getNearbyProperty } from '../../../../redux/actions/propertyAction';
 
-import HorizontalList from '../components/horizontal-list.component';
+import ScrollList from '../../../../shared-components/scroll-list.component';
 import { Menu } from '../components/menu.component';
 
 import { Text } from '../../../../shared-components/Text';

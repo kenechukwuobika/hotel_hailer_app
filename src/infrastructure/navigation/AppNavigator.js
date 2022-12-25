@@ -3,6 +3,7 @@ import { SvgXml } from 'react-native-svg';
 import { useTheme } from 'styled-components';
 
 import PropertyNavigator from './PropertyNavigator';
+import BookingNavigator from './BookingNavigator';
 
 import HomeScreen from '../../views/app/explore/screens/home.screen';
 import NotificationsScreen from '../../views/app/notifications/screens/notification.screen';
@@ -16,7 +17,6 @@ import {
     baggage,
     user
 } from '../../../assets/icons';
-import { useEffect } from 'react';
 
 const AppNavigator = (props) => {
 
@@ -71,7 +71,7 @@ const AppNavigator = (props) => {
                 <appTab.Screen name="Explore" component={PropertyNavigator} />
                 <appTab.Screen name="Notification" component={NotificationsScreen} />
                 <appTab.Screen name="Saved" component={HomeScreen} />
-                <appTab.Screen name="Bookings" component={HomeScreen} />
+                <appTab.Screen name="bookings" component={BookingNavigator} />
                 <appTab.Screen name="Profile" component={HomeScreen} />
             </appTab.Navigator>
         </SafeArea>

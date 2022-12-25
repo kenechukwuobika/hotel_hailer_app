@@ -15,8 +15,11 @@ import Expandable from '../components/expandable.component';
 
 import { getOneProperty, clearOneProperty } from '../../../../redux/actions/propertyAction';
 import { getPropertyReview } from '../../../../redux/actions/reviewAction';
+
 import Button from '../../../../shared-components/Button';
 import { Aligner } from '../../../../shared-components/Aligner';
+import BottomTab from '../../../../shared-components/bottom-tab.component';
+
 import { caretRight } from '../../../../../assets/icons';
 import { formatPrice } from '../../../../utils/Formatters';
 
@@ -25,22 +28,6 @@ const propertyShow = (props) => {
     const [textHeight, setTextHeight] = useState(0);
     const { navigation, route, getOneProperty, clearOneProperty, property, getPropertyReview, reviews } = props;
     const { propertyId } = route.params;
-    
-    useEffect(() => {
-        navigation.getParent()?.setOptions({
-          tabBarStyle: {
-            display: "none"
-          }
-        });
-        return () => navigation.getParent()?.setOptions({
-          tabBarStyle: {
-            height: 75,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingTop: 16
-          }
-        });
-    }, [navigation]);
 
     useEffect(() => {
         if(propertyId){
@@ -244,14 +231,7 @@ const propertyShow = (props) => {
                 
             </ScrollView>
 
-            <View style={{
-                position: "absolute",
-                backgroundColor: theme.colors.greys.g5,
-                paddingVertical: 24,
-                paddingHorizontal: 10,
-                width: "100%",
-                bottom: 0
-            }}>
+            <BottomTab navigation={navigation}>
                 <Aligner justify="space-between">
                     <Text>
                         <Text variant="ProductTitle" options={{ color: theme.colors.primary.default }}>
@@ -268,7 +248,7 @@ const propertyShow = (props) => {
                         />
                     </View>
                 </Aligner>
-            </View>
+            </BottomTab>
 
         </Container>
     )
