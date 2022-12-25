@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View } from "react-native";
 import styled from "styled-components";
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useIsFocused } from "@react-navigation/native";
 
 const BottomTabStyle = styled(View)`
     width: ${RFValue(242)}px;
@@ -16,6 +17,7 @@ const BottomTabStyle = styled(View)`
 const BottomTab = (props) => {
 
     const { navigation, children } = props;
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         navigation.getParent()?.setOptions({
@@ -23,6 +25,7 @@ const BottomTab = (props) => {
             display: "none"
           }
         });
+        
         return () => navigation.getParent()?.setOptions({
           tabBarStyle: {
             height: 75,
@@ -31,7 +34,7 @@ const BottomTab = (props) => {
             paddingTop: 16
           }
         });
-    }, [navigation]);
+    }, [isFocused]);
 
 
     return(
