@@ -9,6 +9,7 @@ import HomeScreen from '../../views/app/explore/screens/home.screen';
 import NotificationsScreen from '../../views/app/notifications/screens/notification.screen';
 
 import SafeArea from '../../shared-components/SafeArea';
+import ModalPopup from '../../shared-components/modal.component';
 
 import { 
     compass,
@@ -74,6 +75,8 @@ const AppNavigator = (props) => {
                 <appTab.Screen name="bookings" component={BookingNavigator} />
                 <appTab.Screen name="Profile" component={HomeScreen} />
             </appTab.Navigator>
+
+            <ModalPopup />
         </SafeArea>
     )
 }

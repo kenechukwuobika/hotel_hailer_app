@@ -38,6 +38,22 @@ const BookingCard = (props) => {
             </BookingDetailsStatus>
         )
     }
+
+    const displayNextPaymentDate = () => {
+        let nextPaymentDate = '------';
+        if(item.status !== "completed"){
+            nextPaymentDate = formatDate(item.nextPaymentDate);
+        }
+
+        return (
+            <Text options={{ 
+                fontFamily: theme.fontFamilies.ralewayExtraBold,
+                color: theme.colors.primary.default
+            }}>{nextPaymentDate}</Text>
+        )
+    }
+
+
     if(!item) {
         return (<></>);
     }
@@ -110,10 +126,7 @@ const BookingCard = (props) => {
                 <Aligner justify="space-between">
                     <Text>Next Payment</Text>
 
-                    <Text options={{ 
-                        fontFamily: theme.fontFamilies.ralewayExtraBold,
-                        color: theme.colors.primary.default
-                    }}>{formatDate(item.nextPaymentDate)}</Text>
+                    {displayNextPaymentDate()}
                 </Aligner>
             </BookingCardBody >
         </BookingCardContainer>
